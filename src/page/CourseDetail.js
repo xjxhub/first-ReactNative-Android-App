@@ -8,7 +8,7 @@
  */
 
 import React, {Component} from 'react';
-import {WebView, Linking, Button, Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -19,15 +19,19 @@ const instructions = Platform.select({
 
 type
 Props = {};
-export default class ToComWeb extends Component<Props> {
-
+export default class CourseDetail extends Component<Props> {
+    constructor(props) {
+        super(props)
+        const {navigation} = this.props
+        this.index = navigation.getParam("index")
+    }
 
     render() {
-        const {navigation} = this.props
         return (
-            <WebView
-                source={{uri: 'http://www.baidu.com'}}
-            />
+            <View style={styles.container}>
+                <Text style={styles.welcome}>CourseDetail</Text>
+                <Text>{this.index}</Text>
+            </View>
         );
     }
 }
@@ -35,7 +39,7 @@ export default class ToComWeb extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
+        // alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
     welcome: {

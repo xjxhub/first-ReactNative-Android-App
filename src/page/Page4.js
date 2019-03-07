@@ -8,7 +8,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Button, Platform, StyleSheet, Text, View} from 'react-native';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -20,10 +20,17 @@ const instructions = Platform.select({
 type Props = {};
 export default class Page4 extends Component<Props> {
   render() {
+      const {navigation}=this.props
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to Page4</Text>
         <Text>Hello World1112233</Text>
+        <Button
+            title={'go to CourseDetail'}
+            onPress={()=>{
+                navigation.navigate('Page3')
+            }}
+        />
       </View>
     );
   }

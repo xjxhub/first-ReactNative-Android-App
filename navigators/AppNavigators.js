@@ -4,10 +4,11 @@ import {Button,Platform} from 'react-native'
 import WelcomePage from '../src/page/WelcomePage'
 import HomePage from '../src/page/HomePage'
 import Page1 from '../src/page/Page1'
-import Page2 from '../src/page/Page2'
+import IndexPage2 from '../src/page/IndexPage2'
 import Page3 from '../src/page/Page3'
 import Page4 from '../src/page/Page4'
 import Page5 from '../src/page/Page5'
+import CourseDetail from '../src/page/CourseDetail'
 import Index from '../src/page/Index'
 import ToComWeb from '../src/page/ToComWeb'
 import ToALi from '../src/page/ToALi'
@@ -25,43 +26,48 @@ const Welcome=createStackNavigator({
 })
 
 const TopTabNavigator=createMaterialTopTabNavigator({
-    Page2:{
-        screen:Page2,
+    IndexPage2:{
+        screen:IndexPage2,
         navigationOptions:{
-            tabBarLabel:'1'
+            tabBarLabel:'公司介绍'
         }
     },
     Page4:{
         screen:Page4,
         navigationOptions:{
-            title:'4'
+            title:'产品介绍'
         }
     },
     Page5:{
         screen:Page5,
         navigationOptions:{
-            title:'5'
+            title:'教学课程'
         }
     },
 },{
     tabBarOptions:{
-        tabStyle:{mindWidth:50},
+        tabStyle:{
+            mindWidth:50,
+            backgroundColor:'#7a1213'
+        },
         upperCaseLabel:false,
-        scrollEnabled:true,
+        // scrollEnabled:true,
         indicatorStyle:{
             height:2,
+            backgroundColor:'#000'
         },
         labelStyle:{
-            fontSize:12,
+            fontSize:14,
             marginTop:6,
             marginBottom:6
-        }
+        },
+        activeTintColor:Platform.OS==='ios'?'#fff':'#fff'
     }
 })
 
 const BottomTabNavigator=createBottomTabNavigator({
-    Index: {
-        screen: Index,
+    Top:{
+        screen:TopTabNavigator,
         navigationOptions:{
             tabBarLabel:'首页',
             tabBarIcon:({tintColor,focused})=>(
@@ -69,6 +75,15 @@ const BottomTabNavigator=createBottomTabNavigator({
             )
         }
     },
+    // Index: {
+    //     screen: Index,
+    //     navigationOptions:{
+    //         tabBarLabel:'首页',
+    //         tabBarIcon:({tintColor,focused})=>(
+    //             <Ionicons name={'home'} size={26} style={{color:tintColor}}/>
+    //         )
+    //     }
+    // },
     ToComWeb: {
         screen: ToComWeb,
         navigationOptions:{
@@ -109,23 +124,25 @@ const stackNavigator=createStackNavigator({
     //         header:null
     //     }
     // },
+
     Bottom:{
         screen:BottomTabNavigator,
         navigationOptions:{
             title:'中邦智慧教育APP'
         }
     },
-    Top:{
-        screen:TopTabNavigator,
-        navigationOptions:{
-            title:'TopTabNavigator'
-        }
-    },
+
     Page1:{
         screen:Page1,
         navigationOptions:({navigation})=>({
             title:`${navigation.state.params.name}页面名`
         })
+    },
+    CourseDetail:{
+        screen:CourseDetail,
+        navigationOptions:{
+            title:null
+        }
     },
     Page3:{
         screen:Page3,
@@ -143,6 +160,7 @@ const stackNavigator=createStackNavigator({
             }
         }
     },
+
 
 })
 

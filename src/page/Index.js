@@ -10,7 +10,7 @@
 import React, {Component} from 'react';
 import {Button, Image, StyleSheet, Text, View} from 'react-native';
 import { Container,  Tab, Tabs, TabHeading, Icon } from 'native-base';
-import Tab1 from './Page2'
+import Tab1 from './IndexPage2'
 import Tab2 from './Page4'
 import Tab3 from './Page5'
 type Props = {};
@@ -36,6 +36,12 @@ export default class Index extends Component<Props> {
                         </Tab>
                     </Tabs>
                 </Container>
+                <Button
+                    title={'go to Page2'}
+                    onPress={()=>{
+                        navigation.navigate('Page2')
+                    }}
+                />
             </View>
         );
     }
@@ -47,6 +53,7 @@ const styles = StyleSheet.create({
         flex: 1,
         // alignItems: 'center',
         backgroundColor: '#F5FCFF',
+
     },
     navImg:{
         width:width/2.1,
