@@ -9,47 +9,49 @@
 
 import React, {Component} from 'react';
 import {Button, Platform, StyleSheet, Text, View} from 'react-native';
+import {Tabs} from '@ant-design/react-native';
 
 const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
+    ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
+    android:
     'Double tap R on your keyboard to reload,\n' +
     'Shake or press menu button for dev menu',
 });
 
-type Props = {};
+type
+Props = {};
 export default class Page4 extends Component<Props> {
-  render() {
-      const {navigation}=this.props
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to Page4</Text>
-        <Text>Hello World1112233</Text>
-        <Button
-            title={'go to CourseDetail'}
-            onPress={()=>{
-                navigation.navigate('Page3')
-            }}
-        />
-      </View>
-    );
-  }
+    render() {
+        const navigation = this.props
+        const tabs = [
+            {title: 'First Tab'},
+            {title: 'Second Tab'},
+            {title: 'Third Tab'},
+        ];
+        return (
+            <View style={{flex: 1}}>
+                <Tabs tabs={tabs}>
+                    <View style={styles.style}>
+                        <Text>Content of First Tab</Text>
+                    </View>
+                    <View style={styles.style}>
+                        <Text>Content of Second Tab</Text>
+                    </View>
+                    <View style={styles.style}>
+                        <Text>Content of Third Tab</Text>
+                    </View>
+                </Tabs>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    style: {
+        paddingVertical: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 10,
+        backgroundColor: '#ddd',
+    }
 });
