@@ -22,31 +22,31 @@ const instructions = Platform.select({
 type
 Props = {};
 export default class Page2 extends Component<Props> {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
-            bestCourseData:[
-                {title:1,describe:'aaaa'},
-                {title:2,describe:'bbb'},
+            bestCourseData: [
+                {title: 1, describe: 'aaaa'},
+                {title: 2, describe: 'bbb'},
             ],
-            bestCourseBottomData:[
-                {title:121,describe:'121212'},
-                {title:221,describe:'222221'},
-                {title:331,describe:'333331'}
+            bestCourseBottomData: [
+                {title: 121, describe: '121212'},
+                {title: 221, describe: '222221'},
+                {title: 331, describe: '333331'}
             ]
         }
     }
 
-    jumpToCourseDetail = (index) =>{
+    jumpToCourseDetail = (index) => {
         const {navigation} = this.props
-        navigation.navigate("CourseDetail",{
-            index:index,
+        navigation.navigate("CourseDetail", {
+            index: index,
         })
         console.log('11')
     }
 
     render() {
-        const {navigation}=this.props
+        const {navigation} = this.props
         return (
             <View className={Page2} style={styles.container}>
                 <ScrollView>
@@ -57,48 +57,50 @@ export default class Page2 extends Component<Props> {
                         </Text>
                         <View className="bestCourseTop" style={{flex: 1, flexDirection: 'row', marginBottom: 30}}>
                             {/*<View style={styles.bestCourseTopItem}>*/}
-                                {/*<Text>111</Text>*/}
+                            {/*<Text>111</Text>*/}
                             {/*</View>*/}
                             {/*<View style={styles.bestCourseTopItem}>*/}
 
                             {/*</View>*/}
                             {
-                                this.state.bestCourseData.map((item,index) =>{
-                                    return  <TouchableOpacity  key={index}
-                                                style={styles.bestCourseTopItem} onPress={()=>{this.jumpToCourseDetail(index)}}>
-                                                <Text>{item.title}</Text>
-                                            </TouchableOpacity >
+                                this.state.bestCourseData.map((item, index) => {
+                                    return <TouchableOpacity key={index}
+                                                             style={styles.bestCourseTopItem} onPress={() => {
+                                        this.jumpToCourseDetail(index)
+                                    }}>
+                                        <Text>{item.title}</Text>
+                                    </TouchableOpacity>
 
                                 })
                             }
                         </View>
                         <View className="bestCourseBottom">
                             {/*<View style={styles.bestCourseBottomItem}>*/}
-                                {/*<View style={styles.bestCourseBottomItemImg}>*/}
+                            {/*<View style={styles.bestCourseBottomItemImg}>*/}
 
-                                {/*</View>*/}
-                                {/*<View style={styles.bestCourseBottomItemFont}>*/}
-                                    {/*<Text style={styles.bestCourseBottomItemFontTit}>1212</Text>*/}
-                                    {/*<Text style={styles.bestCourseBottomItemFontDes}>12121212121</Text>*/}
-                                {/*</View>*/}
+                            {/*</View>*/}
+                            {/*<View style={styles.bestCourseBottomItemFont}>*/}
+                            {/*<Text style={styles.bestCourseBottomItemFontTit}>1212</Text>*/}
+                            {/*<Text style={styles.bestCourseBottomItemFontDes}>12121212121</Text>*/}
+                            {/*</View>*/}
                             {/*</View>*/}
                             {/*<View style={styles.bestCourseBottomItem}>*/}
-                                {/*<Text>222</Text>*/}
+                            {/*<Text>222</Text>*/}
                             {/*</View>*/}
                             {/*<View style={styles.bestCourseBottomItem}>*/}
-                                {/*<Text>33</Text>*/}
+                            {/*<Text>33</Text>*/}
                             {/*</View>*/}
                             {
-                                this.state.bestCourseBottomData.map((item,index) =>{
-                                    return  <View key={index} style={styles.bestCourseBottomItem}>
-                                                <View style={styles.bestCourseBottomItemImg}>
+                                this.state.bestCourseBottomData.map((item, index) => {
+                                    return <View key={index} style={styles.bestCourseBottomItem}>
+                                        <View style={styles.bestCourseBottomItemImg}>
 
-                                                </View>
-                                                <View style={styles.bestCourseBottomItemFont}>
-                                                    <Text style={styles.bestCourseBottomItemFontTit}>{item.title}</Text>
-                                                    <Text style={styles.bestCourseBottomItemFontDes}>{item.describe}</Text>
-                                                </View>
-                                            </View>
+                                        </View>
+                                        <View style={styles.bestCourseBottomItemFont}>
+                                            <Text style={styles.bestCourseBottomItemFontTit}>{item.title}</Text>
+                                            <Text style={styles.bestCourseBottomItemFontDes}>{item.describe}</Text>
+                                        </View>
+                                    </View>
 
                                 })
                             }

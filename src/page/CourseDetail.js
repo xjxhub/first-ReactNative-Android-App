@@ -42,7 +42,11 @@ export default class CourseDetail extends Component<Props> {
                     </Text>
                     <Tabs tabs={tabs} style={{color:"#000"}}>
                         <View style={styles.style}>
-                            <Text>{this.index}</Text>
+                            <Text>{this.index}Content of Second TabContent of
+                                Second TabContent of Second TabContent of Second
+                                TabContent of Second TabContent of Second Tab
+                                Content of Second TabContent of Second Tab
+                                Content of Second TabContent of Second Tab</Text>
                         </View>
                         <View style={styles.style}>
                             <Text>Content of Second Tab</Text>

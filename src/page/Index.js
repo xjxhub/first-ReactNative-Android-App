@@ -9,10 +9,7 @@
 
 import React, {Component} from 'react';
 import {Button, Image, StyleSheet, Text, View} from 'react-native';
-import { Container,  Tab, Tabs, TabHeading, Icon } from 'native-base';
-import Tab1 from './IndexPage2'
-import Tab2 from './Page4'
-import Tab3 from './Page5'
+
 type Props = {};
 export default class Index extends Component<Props> {
 
@@ -23,19 +20,7 @@ export default class Index extends Component<Props> {
               {/*<View style={{height:45,backgroundColor:'#24a3ff'}}>*/}
                 {/*<Image style={styles.navImg} source={require('../img/zbtLogo.png')} />*/}
               {/*</View>*/}
-                <Container>
-                    <Tabs>
-                        <Tab heading={ <TabHeading style={styles.tabs}><Text style={styles.tabsText}>公司介绍</Text></TabHeading>}>
-                            <Tab1 />
-                        </Tab>
-                        <Tab heading={ <TabHeading style={styles.tabs}><Text style={styles.tabsText}>产品介绍</Text></TabHeading>}>
-                            <Tab2 />
-                        </Tab>
-                        <Tab heading={ <TabHeading style={styles.tabs}><Text style={styles.tabsText}>教学课程</Text></TabHeading>}>
-                            <Tab3 />
-                        </Tab>
-                    </Tabs>
-                </Container>
+
                 <Button
                     title={'go to Page2'}
                     onPress={()=>{
