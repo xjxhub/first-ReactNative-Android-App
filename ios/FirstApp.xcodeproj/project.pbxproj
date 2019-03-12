@@ -78,6 +78,8 @@
 		511633C68ABB4E409205C7E0 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C41B4E10D0994D8788256219 /* Zocial.ttf */; };
 		143E5035003148378825A3E0 /* antfill.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5ECF1858EC98477F9CAECAF9 /* antfill.ttf */; };
 		9DC853F9A9F642848F6F69B0 /* antoutline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E966477905FE46E5BCB8398F /* antoutline.ttf */; };
+		395C00A67D3A4522AD697BBF /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DAE20087DE84342B4C78C8D /* libRCTVideo.a */; };
+		19E33FC1AA104404965E4473 /* libRCTOrientation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFFA3E88ECEA416695EA4ABA /* libRCTOrientation.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -427,6 +429,10 @@
 		C41B4E10D0994D8788256219 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		5ECF1858EC98477F9CAECAF9 /* antfill.ttf */ = {isa = PBXFileReference; name = "antfill.ttf"; path = "../node_modules/@ant-design/icons-react-native/fonts/antfill.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		E966477905FE46E5BCB8398F /* antoutline.ttf */ = {isa = PBXFileReference; name = "antoutline.ttf"; path = "../node_modules/@ant-design/icons-react-native/fonts/antoutline.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D62987A69DC6403BBEA8EBDA /* RCTVideo.xcodeproj */ = {isa = PBXFileReference; name = "RCTVideo.xcodeproj"; path = "../node_modules/react-native-video/ios/RCTVideo.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		7DAE20087DE84342B4C78C8D /* libRCTVideo.a */ = {isa = PBXFileReference; name = "libRCTVideo.a"; path = "libRCTVideo.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		E30F53FE1B9E44F69B85F7A9 /* RCTOrientation.xcodeproj */ = {isa = PBXFileReference; name = "RCTOrientation.xcodeproj"; path = "../node_modules/react-native-orientation/iOS/RCTOrientation.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		AFFA3E88ECEA416695EA4ABA /* libRCTOrientation.a */ = {isa = PBXFileReference; name = "libRCTOrientation.a"; path = "libRCTOrientation.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -458,6 +464,8 @@
 				3377414507BB4B39BCEDC973 /* libRNGestureHandler.a in Frameworks */,
 				848FBA29FC5A414AA279C69D /* libBVLinearGradient.a in Frameworks */,
 				0400E70417494EA385BA59E5 /* libRNVectorIcons.a in Frameworks */,
+				395C00A67D3A4522AD697BBF /* libRCTVideo.a in Frameworks */,
+				19E33FC1AA104404965E4473 /* libRCTOrientation.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,6 +659,8 @@
 				9E31106BF1D54C0E91F71609 /* RNGestureHandler.xcodeproj */,
 				837E8E8BC87E4F9B9D1BA4C1 /* BVLinearGradient.xcodeproj */,
 				BC2827DDCAD242249E2B73DC /* RNVectorIcons.xcodeproj */,
+				D62987A69DC6403BBEA8EBDA /* RCTVideo.xcodeproj */,
+				E30F53FE1B9E44F69B85F7A9 /* RCTOrientation.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1361,12 +1371,16 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-video\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
 				);
 			};
 			name = Debug;
@@ -1392,12 +1406,16 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-video\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
 				);
 			};
 			name = Release;
@@ -1423,6 +1441,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-video\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
 				);
 			};
 			name = Debug;
@@ -1447,6 +1467,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-video\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
 				);
 			};
 			name = Release;
@@ -1480,12 +1502,16 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-video\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
 				);
 			};
 			name = Debug;
@@ -1519,12 +1545,16 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-video\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
 				);
 			};
 			name = Release;
@@ -1557,12 +1587,16 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-video\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
 				);
 			};
 			name = Debug;
@@ -1595,12 +1629,16 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\react-native-video\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
 				);
 			};
 			name = Release;
