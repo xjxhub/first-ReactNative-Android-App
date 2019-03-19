@@ -116,7 +116,8 @@ export default class Page2 extends Component<Props> {
         const {navigation} = this.props
         navigation.navigate("CourseDetail", {
             index: index,
-            item:item
+            item:item,
+            name:item.title
         })
         console.log('11')
     }
@@ -146,7 +147,7 @@ export default class Page2 extends Component<Props> {
                                     }}>
                                         <Image
                                             style={{width: 180, height: 100}}
-                                            source={{uri: 'http://192.168.0.250:8004/resource/' + item.url}}
+                                            source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}
                                         />
                                         <Text style={styles.bestCourseTopItemTitle}>{item.title}</Text>
                                     </TouchableOpacity>
@@ -178,7 +179,7 @@ export default class Page2 extends Component<Props> {
                                         <View style={styles.bestCourseBottomItemImg}>
                                             <Image
                                                 style={{width: 150, height: 80}}
-                                                source={{uri: 'http://192.168.0.250:8004/resource/' + item.url}}
+                                                source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}
                                             />
                                             {/*<Image*/}
                                                 {/*source={require('../img/pause.png')}*/}
@@ -208,7 +209,7 @@ export default class Page2 extends Component<Props> {
                                     }}>
                                         <Image
                                             style={{width: 180, height: 100}}
-                                            source={{uri: 'http://192.168.0.250:8004/resource/' + item.url}}
+                                            source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}
                                         />
                                         <Text style={styles.bestCourseTopItemTitle}>{item.title}</Text>
                                     </TouchableOpacity>
@@ -225,7 +226,7 @@ export default class Page2 extends Component<Props> {
                                         <View style={styles.bestCourseBottomItemImg}>
                                             <Image
                                                 style={{width: 150, height: 80}}
-                                                source={{uri: 'http://192.168.0.250:8004/resource/' + item.url}}
+                                                source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}
                                             />
                                         </View>
                                         <View style={styles.bestCourseBottomItemFont}>

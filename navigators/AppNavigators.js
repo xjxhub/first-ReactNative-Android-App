@@ -140,9 +140,12 @@ const stackNavigator=createStackNavigator({
     },
     CourseDetail:{
         screen:CourseDetail,
-        navigationOptions:{
-            header:null
-        }
+        navigationOptions:({navigation})=>({
+            title:`${navigation.state.params.name}`,
+            headerTitleStyle:{
+                fontSize:16
+            }
+        })
     },
     Page3:{
         screen:Page3,

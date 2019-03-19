@@ -1,79 +1,37 @@
-import React, { Component } from 'react';
-import {
-    Platform,
-    StyleSheet,
-    Text,
-    View,
-    Image,
-    Dimensions,
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow
+ * @lint-ignore-every XPLATJSCOPYRIGHT1
+ */
 
-} from 'react-native';
-
-//引用插件
-import Swiper from 'react-native-swiper';
-
-// 取得屏幕的宽高Dimensions
-const { width, height } = Dimensions.get('window');
-
-export default class MyPage extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-
-            swiperShow: false,
-
-        };
+import React, {Component} from 'react';
+import {Button, Image, StyleSheet, Text, View} from 'react-native';
+type Props = {};
+export default class HomePage extends Component<Props> {
+    static navigationOptions={
+        title:'Home',
+        headerBackTitle:'返回111'
     }
-
-    // 轮播图
-    renderBanner() {
-        if (this.state.swiperShow) {
-            console.log ('返回值' + this.state.swiperShow);
-            return (
-                <Swiper
-                    style={styles.wrapper}
-                    height={width * 40 / 75}
-                    showsButtons={false}
-                    removeClippedSubviews={false} //这个很主要啊，解决白屏问题
-                    // autoplay={true}
-                    horizontal ={true}
-                    paginationStyle={styles.paginationStyle}
-                    dotStyle={styles.dotStyle}
-                    activeDotStyle={styles.activeDotStyle}
-                >
-                    <Image source={require('../img/back.png')} style={styles.bannerImg} />
-                    <Image source={require('../img/play.png')} style={styles.bannerImg} />
-                    <Image source={require('../img/pause.png')} style={styles.bannerImg} />
-                    <Image source={require('../img/expand.png')} style={styles.bannerImg} />
-
-
-                </Swiper>
-
-            );
-
-        } else {
-            return (
-                <View style={styles.wrapper}>
-                    <Image source={require('../img/error-icon.png')} style={styles.bannerImg} />
-                </View>
-            );
-        }
-    }
-
-    componentDidMount() {
-        setTimeout(() => {
-            this.setState({
-                swiperShow: true,
-            });
-        }, 1)
-    }
-
-
     render() {
+        const {navigation}=this.props
         return (
             <View style={styles.container}>
-                {this.renderBanner()}
+                <Button
+                    title="Go To Page1"
+                    onPress={() => {
+                        navigation.navigate('Page1', {name: '动11态的'});
+                    }}
+                />
+
+                <Button
+                    title="Go To Page3"
+                    onPress={() => {
+                        navigation.navigate('Page3', {name: 'Devio'});
+                    }}
+                />
             </View>
         );
     }
@@ -81,30 +39,13 @@ export default class MyPage extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        height:width * 40 / 75,
+        flex: 1,
+        // alignItems: 'center',
+        backgroundColor: '#F5FCFF',
     },
-
-    wrpaper: {
-        width: width,
-        height:width * 40 / 75,
-
+    welcome: {
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10,
     },
-
-    paginationStyle: {
-        bottom: 6,
-    },
-    dotStyle: {
-        width: 22,
-        height: 3,
-        backgroundColor: '#fff',
-        opacity: 0.4,
-        borderRadius: 0,
-    },
-    activeDotStyle: {
-        width: 22,
-        height: 3,
-        backgroundColor: '#fff',
-        borderRadius: 0,
-    },
-
 });

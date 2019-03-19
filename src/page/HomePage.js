@@ -19,7 +19,24 @@ export default class HomePage extends Component<Props> {
         const {navigation}=this.props
         return (
             <View style={styles.container}>
-
+                <Button
+                    title="Go To Page1"
+                    onPress={() => {
+                        navigation.navigate('Page1', {name: '动态的'});
+                    }}
+                />
+                <Button
+                    title="Go To Page2"
+                    onPress={() => {
+                        navigation.navigate('Page2');
+                    }}
+                />
+                <Button
+                    title="Go To Page3"
+                    onPress={() => {
+                        navigation.navigate('Page3', {name: 'Devio'});
+                    }}
+                />
             </View>
         );
     }

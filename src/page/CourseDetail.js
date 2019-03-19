@@ -35,9 +35,9 @@ function formatTime(second) {
 }
 
 export default class CourseDetail extends Component<Props> {
-    static navigationOptions = {
-        headerTitle: '测试视频播放'
-    };
+    // static navigationOptions = {
+    //     headerTitle: '测试视频播放'
+    // };
 
     constructor( props ) {
         super( props );
@@ -48,11 +48,13 @@ export default class CourseDetail extends Component<Props> {
         super(props);
         this.state = {
             currCourseItemPPT:this.courseItem.ppt,
+            currpptIndex:0,
+            allpptPage:0,
             pptArray:[],
             swiperShow: false,
-            // videoUrl: "http://192.168.0.250:8004/resource/" + this.courseItem.video,
-            videoUrl: "http://124.129.157.208:8810/SD/2017qingdao/xiaoxueEnglish/grade3/b/1.mp4",
-            videoCover: 'http://192.168.0.250:8010/resource/' + this.courseItem.url,
+            videoUrl: "http://192.168.0.250:8004/resource/"+ this.courseItem.title + '/' + this.courseItem.video,
+            // videoUrl: "http://124.129.157.208:8810/SD/2017qingdao/xiaoxueEnglish/grade3/b/1.mp4",
+            videoCover: "http://192.168.0.250:8004/resource/"+ this.courseItem.title + '/' + this.courseItem.url,
             videoWidth: screenWidth,
             videoHeight: screenWidth * 9/16, // 默认16：9的宽高比
             showVideoCover: true,    // 是否显示视频封面
@@ -73,9 +75,10 @@ export default class CourseDetail extends Component<Props> {
             console.log ('返回值' + this.state.swiperShow);
             return (
                 <Swiper
+                    onIndexChanged={this.changeIndex}
                     style={styles.wrapper}
                     height={width * 40 / 75}
-                    showsButtons={false}
+                    showsButtons={true}
                     removeClippedSubviews={false} //这个很主要啊，解决白屏问题
                     // autoplay={true}
                     horizontal ={true}
@@ -84,15 +87,17 @@ export default class CourseDetail extends Component<Props> {
                     dotStyle={styles.dotStyle}
                     activeDotStyle={styles.activeDotStyle}
                 >
-                    {/*{*/}
-                        {/*this.state.pptArray.map((item, index) => {*/}
-                            {/*return <Image source={{uri: item}}*/}
-                                          {/*style={styles.bannerImg} />*/}
-                        {/*})*/}
-                    {/*}*/}
-                    <Image source={require('../img/01.png')} style={styles.bannerImg} />
-                    <Image source={require('../img/02.png')} style={styles.bannerImg} />
-                    <Image source={require('../img/03.png')} style={styles.bannerImg} />
+                    {
+                        this.state.pptArray.map((item, index) => {
+                            return <Image source={{uri: 'http://192.168.0.250:8004' + item.img}}
+                                          key={index}
+                                          style={styles.bannerImg} />
+                        })
+                    }
+
+                    {/*<Image source={require('../img/01.png')} style={styles.bannerImg} />*/}
+                    {/*<Image source={require('../img/02.png')} style={styles.bannerImg} />*/}
+                    {/*<Image source={require('../img/03.png')} style={styles.bannerImg} />*/}
                 </Swiper>
 
             );
@@ -106,24 +111,29 @@ export default class CourseDetail extends Component<Props> {
         }
     }
 
+    changeIndex = (index) => {
+        this.setState({
+            currpptIndex:index
+        });
+    }
+
     componentDidMount() {
-         fetch("http://192.168.0.250:8004/resource/" + this.state.currCourseItemPPT, {
+         fetch("http://192.168.0.250:8004/readResource/ppt", {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                firstParam: '111',
+                pptParam: this.courseItem.title+ '/' + this.state.currCourseItemPPT,
             }),
         })
             .then((response) => response.json())
             .then((res) => {       // 获取到的数据处理
                 this.setState({
-                    pptArray: res,
+                    pptArray: res.result,
                 });
             })
-
         this.swiperFunction()
     }
 
@@ -314,10 +324,7 @@ export default class CourseDetail extends Component<Props> {
                 <Tabs tabs={tabs} style={{color:"#000"}}>
                     {/*简介*/}
                     <View style={styles.style}>
-                        {/*<Text>{this.index}</Text>*/}
                         <Text>{this.courseItem.describe}</Text>
-                        <Text>{this.courseItem.ppt}</Text>
-                        {/*<Text>{this.resData}</Text>*/}
                     </View>
                     {/*<View style={styles.style}>*/}
                     {/*微课*/}
@@ -410,7 +417,7 @@ export default class CourseDetail extends Component<Props> {
                                         </TouchableOpacity>
                                     </View> : null
                             }
-                            <Text>{this.state.videoUrl}</Text>
+                            {/*<Text>{this.state.videoUrl}</Text>*/}
 
                         </View>
                     </View>
@@ -418,6 +425,10 @@ export default class CourseDetail extends Component<Props> {
                     {/*课件*/}
                     <View style={styles.pptContainer}>
                         {this.renderBanner()}
+                        <View style={{color:'#000',marginLeft:5,marginTop:5}}>
+                            <Text>当前第{this.state.currpptIndex + 1}/{this.state.pptArray.length}页</Text>
+                        </View>
+
                     </View>
                     {/*评论*/}
                     <View>
@@ -485,7 +496,7 @@ const styles = StyleSheet.create({
         height:width * 40 / 75,
     },
     bannerImg:{
-      width:width,
+        width:width,
         height:width * 40 / 75,
     },
     paginationStyle: {
