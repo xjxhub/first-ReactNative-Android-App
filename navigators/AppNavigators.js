@@ -141,7 +141,7 @@ const stackNavigator=createStackNavigator({
     CourseDetail:{
         screen:CourseDetail,
         navigationOptions:{
-            title:null
+            header:null
         }
     },
     Page3:{

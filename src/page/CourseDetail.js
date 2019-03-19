@@ -12,11 +12,14 @@ import {View, Dimensions, Image, Text, Slider, TouchableWithoutFeedback, Touchab
 import Video from 'react-native-video';
 import Orientation from 'react-native-orientation';
 import {Tabs} from '@ant-design/react-native';
+import Swiper from 'react-native-swiper';
 
 type
 Props = {};
 
 const screenWidth = Dimensions.get('window').width;
+// 取得屏幕的宽高Dimensions
+const { width, height } = Dimensions.get('window');
 
 function formatTime(second) {
     let h = 0, i = 0, s = parseInt(second);
@@ -40,11 +43,16 @@ export default class CourseDetail extends Component<Props> {
         super( props );
         const {navigation} = this.props
         this.index = navigation.getParam("index")
+        this.courseItem = navigation.getParam("item")
 
         super(props);
         this.state = {
+            currCourseItemPPT:this.courseItem.ppt,
+            pptArray:[],
+            swiperShow: false,
+            // videoUrl: "http://192.168.0.250:8004/resource/" + this.courseItem.video,
             videoUrl: "http://124.129.157.208:8810/SD/2017qingdao/xiaoxueEnglish/grade3/b/1.mp4",
-            videoCover: "http://124.129.157.208:8889/data/uploads/kecheng/2018/01/18/5a600b2c99836.png@0o_0l_220w.png",
+            videoCover: 'http://192.168.0.250:8010/resource/' + this.courseItem.url,
             videoWidth: screenWidth,
             videoHeight: screenWidth * 9/16, // 默认16：9的宽高比
             showVideoCover: true,    // 是否显示视频封面
@@ -59,19 +67,47 @@ export default class CourseDetail extends Component<Props> {
         };
     }
 
-    componentDidMount () {
-         // return fetch('http://192.168.0.250:8003/readResource/bar')
-         //    .then((response) => response.json())
-         //    .then((res) => {
-         //        this.setState({
-         //            fetchDataGet:res
-         //        })
-         //    })
-         //    .catch((error) => {
-         //
-         //    });
+    // 轮播图
+    renderBanner() {
+        if (this.state.swiperShow) {
+            console.log ('返回值' + this.state.swiperShow);
+            return (
+                <Swiper
+                    style={styles.wrapper}
+                    height={width * 40 / 75}
+                    showsButtons={false}
+                    removeClippedSubviews={false} //这个很主要啊，解决白屏问题
+                    // autoplay={true}
+                    horizontal ={true}
+                    showsPagination={false}
+                    paginationStyle={styles.paginationStyle}
+                    dotStyle={styles.dotStyle}
+                    activeDotStyle={styles.activeDotStyle}
+                >
+                    {/*{*/}
+                        {/*this.state.pptArray.map((item, index) => {*/}
+                            {/*return <Image source={{uri: item}}*/}
+                                          {/*style={styles.bannerImg} />*/}
+                        {/*})*/}
+                    {/*}*/}
+                    <Image source={require('../img/01.png')} style={styles.bannerImg} />
+                    <Image source={require('../img/02.png')} style={styles.bannerImg} />
+                    <Image source={require('../img/03.png')} style={styles.bannerImg} />
+                </Swiper>
 
-        return fetch('http://192.168.0.250:8003/readResource', {
+            );
+
+        } else {
+            return (
+                <View style={styles.wrapper}>
+                    <Image source={require('../img/error-icon.png')} style={styles.bannerImg} />
+                </View>
+            );
+        }
+    }
+
+    componentDidMount() {
+         fetch("http://192.168.0.250:8004/resource/" + this.state.currCourseItemPPT, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -79,21 +115,24 @@ export default class CourseDetail extends Component<Props> {
             },
             body: JSON.stringify({
                 firstParam: '111',
-                secondParam: '222',
             }),
         })
             .then((response) => response.json())
             .then((res) => {       // 获取到的数据处理
-                alert(res)
-
                 this.setState({
-                    fetchDataPost:res.result
-                })
-                // return res.json()
+                    pptArray: res,
+                });
             })
-            .catch((error) => { // 错误处理
 
-            })
+        this.swiperFunction()
+    }
+
+    swiperFunction(){
+        setTimeout(() => {
+            this.setState({
+                swiperShow: true,
+            });
+        }, 1)
     }
 
     /// -------Video组件回调事件-------
@@ -250,15 +289,15 @@ export default class CourseDetail extends Component<Props> {
     }
 
     /// 切换视频并可以指定视频开始播放的时间，提供给外部调用
-    switchVideo(videoURL, seekTime) {
-        this.setState({
-            videoUrl: videoURL,
-            currentTime: seekTime,
-            isPlaying: true,
-            showVideoCover: false
-        });
-        this.videoPlayer.seek(seekTime);
-    }
+    // switchVideo(videoURL, seekTime) {
+    //     this.setState({
+    //         videoUrl: videoURL,
+    //         currentTime: seekTime,
+    //         isPlaying: true,
+    //         showVideoCover: false
+    //     });
+    //     this.videoPlayer.seek(seekTime);
+    // }
 
     render() {
         const tabs = [
@@ -273,12 +312,15 @@ export default class CourseDetail extends Component<Props> {
                     {/*title*/}
                 {/*</Text>*/}
                 <Tabs tabs={tabs} style={{color:"#000"}}>
+                    {/*简介*/}
                     <View style={styles.style}>
-                        <Text>{this.index}</Text>
-                        <Text>{this.state.fetchDataGet}</Text>
-                        <Text>{this.state.fetchDataPost}</Text>
+                        {/*<Text>{this.index}</Text>*/}
+                        <Text>{this.courseItem.describe}</Text>
+                        <Text>{this.courseItem.ppt}</Text>
+                        {/*<Text>{this.resData}</Text>*/}
                     </View>
                     {/*<View style={styles.style}>*/}
+                    {/*微课*/}
                     <View style={styles.container} onLayout={this._onLayout}>
                         <View style={{ width: this.state.videoWidth, height: this.state.videoHeight, backgroundColor:'#000000' }}>
                             <Video
@@ -368,11 +410,18 @@ export default class CourseDetail extends Component<Props> {
                                         </TouchableOpacity>
                                     </View> : null
                             }
+                            <Text>{this.state.videoUrl}</Text>
+
                         </View>
                     </View>
                     {/*</View>*/}
-                    <View style={styles.style}>
-                        <Text>Content of Third Tab</Text>
+                    {/*课件*/}
+                    <View style={styles.pptContainer}>
+                        {this.renderBanner()}
+                    </View>
+                    {/*评论*/}
+                    <View>
+
                     </View>
                 </Tabs>
             </View>
@@ -427,5 +476,32 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         left: 0
+    },
+    pptContainer: {
+        height:width * 40 / 75,
+    },
+    wrpaper: {
+        width: width,
+        height:width * 40 / 75,
+    },
+    bannerImg:{
+      width:width,
+        height:width * 40 / 75,
+    },
+    paginationStyle: {
+        bottom: 6,
+    },
+    dotStyle: {
+        width: 22,
+        height: 3,
+        backgroundColor: '#fff',
+        opacity: 0.4,
+        borderRadius: 0,
+    },
+    activeDotStyle: {
+        width: 22,
+        height: 3,
+        backgroundColor: '#fff',
+        borderRadius: 0,
     },
 });
