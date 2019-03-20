@@ -20,6 +20,7 @@ import {
     Provider,
 } from '@ant-design/react-native';
 
+const forge = require('node-forge');
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
     android:
@@ -109,15 +110,21 @@ export default class MyPage extends Component<Props> {
     }
 
     loginRequest = () => {
+        // alert('123')
+        let md = forge.md.md5.create();
         let PW,IC
         if(this.state.nowState === 'YZM'){
             IC = this.state.password
             PW = ''
+            md.update(IC);
+            IC=md.digest().toHex()
         } else {
             IC = ''
             PW = this.state.password
+            md.update(PW);
+            PW=md.digest().toHex()
         }
-        fetch("http://192.168.0.250:8004/readResource/ppt", {
+        fetch("http://192.168.0.250:8004/user/login", {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -174,6 +181,7 @@ export default class MyPage extends Component<Props> {
                             {/*close modal*/}
                         {/*</Button>*/}
                     </Modal>
+                    {/*注册框*/}
                     <Modal
                         popup
                         visible={this.state.visible1}
@@ -214,12 +222,13 @@ export default class MyPage extends Component<Props> {
                                 <Text style={{fontSize:14}}>发送验证码</Text>
                             </Button>
                             <WhiteSpace size="xl" />
-                            <Button type="primary" onPress={this.loginRequest}>
+                            <Button type="primary">
                                 <Text>确认</Text>
                             </Button>
                             <WhiteSpace size="xl" />
                         </View>
                     </Modal>
+                    {/*登录框*/}
                     <Modal
                         popup
                         visible={this.state.visible2}
@@ -260,7 +269,7 @@ export default class MyPage extends Component<Props> {
                                     <Text style={{fontSize:14}}>{this.state.buttonFont}</Text>
                                 </Button>
                             <WhiteSpace size="xl" />
-                            <Button type="primary">
+                            <Button type="primary" onPress={this.loginRequest}>
                                 <Text>确认</Text>
                             </Button>
                             <WhiteSpace size="xl" />
