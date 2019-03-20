@@ -92,7 +92,7 @@ export default class MyPage extends Component<Props> {
         }
     }
 
-        sendORfind = () => {
+    sendORfind = () => {
         if(this.state.nowState === 'YZM'){
             this.sendIdentifyingCode()
         } else {
@@ -106,6 +106,33 @@ export default class MyPage extends Component<Props> {
 
     findPassWord = () => {
         alert('找回密码')
+    }
+
+    loginRequest = () => {
+        let PW,IC
+        if(this.state.nowState === 'YZM'){
+            IC = this.state.password
+            PW = ''
+        } else {
+            IC = ''
+            PW = this.state.password
+        }
+        fetch("http://192.168.0.250:8004/readResource/ppt", {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                phoneNumber: this.state.phone,
+                passWord:PW,
+                identifyingCode:IC
+            }),
+        })
+            .then((response) => response.json())
+            .then((res) => {       // 获取到的数据处理
+
+            })
     }
 
         render() {
@@ -187,7 +214,7 @@ export default class MyPage extends Component<Props> {
                                 <Text style={{fontSize:14}}>发送验证码</Text>
                             </Button>
                             <WhiteSpace size="xl" />
-                            <Button type="primary">
+                            <Button type="primary" onPress={this.loginRequest}>
                                 <Text>确认</Text>
                             </Button>
                             <WhiteSpace size="xl" />
