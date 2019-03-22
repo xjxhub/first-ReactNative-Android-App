@@ -8,7 +8,7 @@
  */
 
 import React, {Component} from 'react';
-import {View, Dimensions, Image, Text, Slider, TouchableWithoutFeedback, TouchableOpacity, Button, StyleSheet} from 'react-native';
+import {Platform, WebView,View, Dimensions, Image, Text, Slider, TouchableWithoutFeedback, TouchableOpacity, Button, StyleSheet} from 'react-native';
 import Video from 'react-native-video';
 import Orientation from 'react-native-orientation';
 import {Tabs} from '@ant-design/react-native';
@@ -47,6 +47,7 @@ export default class CourseDetail extends Component<Props> {
 
         super(props);
         this.state = {
+            currScreenState:'',
             currCourseItemPPT:this.courseItem.ppt,
             currpptIndex:0,
             allpptPage:0,
@@ -115,6 +116,27 @@ export default class CourseDetail extends Component<Props> {
         this.setState({
             currpptIndex:index
         });
+    }
+
+    clickppt(){
+        // alert(this.state.currScreenState)
+    }
+
+    componentWillMount(){
+        let initial = Orientation.getInitialOrientation();
+        if (initial === 'PORTRAIT') {
+            //do stuff
+            // alert("aaa")
+            this.setState({
+                currScreenState:11
+            })
+        } else {
+            //do other stuff
+            // alert("222")
+            this.setState({
+                currScreenState:22
+            })
+        }
     }
 
     componentDidMount() {
@@ -328,108 +350,114 @@ export default class CourseDetail extends Component<Props> {
                     </View>
                     {/*<View style={styles.style}>*/}
                     {/*微课*/}
-                    <View style={styles.container} onLayout={this._onLayout}>
-                        <View style={{ width: this.state.videoWidth, height: this.state.videoHeight, backgroundColor:'#000000' }}>
-                            <Video
-                                ref={(ref) => this.videoPlayer = ref}
-                                source={{uri: this.state.videoUrl}}
-                                rate={1.0}
-                                volume={1.0}
-                                muted={false}
-                                paused={!this.state.isPlaying}
-                                resizeMode={'contain'}
-                                playWhenInactive={false}
-                                playInBackground={false}
-                                ignoreSilentSwitch={'ignore'}
-                                progressUpdateInterval={250.0}
-                                onLoadStart={this._onLoadStart}
-                                onLoad={this._onLoaded}
-                                onProgress={this._onProgressChanged}
-                                onEnd={this._onPlayEnd}
-                                onError={this._onPlayError}
-                                onBuffer={this._onBuffering}
-                                style={{width: this.state.videoWidth, height: this.state.videoHeight}}
-                            />
-                            {
-                                this.state.showVideoCover ?
-                                    <Image
-                                        style={{
-                                            position:'absolute',
-                                            top: 0,
-                                            left: 0,
-                                            width: this.state.videoWidth,
-                                            height: this.state.videoHeight
-                                        }}
-                                        resizeMode={'cover'}
-                                        source={{uri: this.state.videoCover}}
-                                    /> : null
-                            }
-                            <TouchableWithoutFeedback onPress={() => { this.hideControl() }}>
-                                <View
-                                    style={{
-                                        position: 'absolute',
-                                        top: 0,
-                                        left: 0,
-                                        width: this.state.videoWidth,
-                                        height: this.state.videoHeight,
-                                        backgroundColor: this.state.isPlaying ? 'transparent' : 'rgba(0, 0, 0, 0.2)',
-                                        alignItems:'center',
-                                        justifyContent:'center'
-                                    }}>
-                                    {
-                                        this.state.isPlaying ? null :
-                                            <TouchableWithoutFeedback onPress={() => { this.onPressPlayButton() }}>
-                                                <Image
-                                                    style={styles.playButton}
-                                                    source={require('../img/play.png')}
-                                                />
-                                            </TouchableWithoutFeedback>
-                                    }
-                                </View>
-                            </TouchableWithoutFeedback>
-                            {
-                                this.state.showVideoControl ?
-                                    <View style={[styles.control, {width: this.state.videoWidth}]}>
-                                        <TouchableOpacity activeOpacity={0.3} onPress={() => { this.onControlPlayPress() }}>
-                                            <Image
-                                                style={styles.playControl}
-                                                source={this.state.isPlaying ? require('../img/pause.png') : require('../img/play.png')}
-                                            />
-                                        </TouchableOpacity>
-                                        <Text style={styles.time}>{formatTime(this.state.currentTime)}</Text>
-                                        <Slider
-                                            style={{flex: 1}}
-                                            maximumTrackTintColor={'#999999'}
-                                            thumbTintColor={'#fff'}
-                                            minimumTrackTintColor={'#f00'}
-                                            // thumbImage={require('../img/play.png')}
-                                            value={this.state.currentTime}
-                                            minimumValue={0}
-                                            maximumValue={this.state.duration}
-                                            onValueChange={(currentTime) => { this.onSliderValueChanged(currentTime) }}
-                                        />
-                                        <Text style={styles.time}>{formatTime(this.state.duration)}</Text>
-                                        <TouchableOpacity activeOpacity={0.3} onPress={() => { this.onControlShrinkPress() }}>
-                                            <Image
-                                                style={styles.shrinkControl}
-                                                source={this.state.isFullScreen ? require('../img/expand.png') : require('../img/expand.png')}
-                                            />
-                                        </TouchableOpacity>
-                                    </View> : null
-                            }
-                            {/*<Text>{this.state.videoUrl}</Text>*/}
 
-                        </View>
-                    </View>
+                    {/*<WebView source={require('../html/courseVideo.html')}/>*/}
+
+                    <WebView source={(Platform.OS == 'ios') ? require('../html/courseVideo.html') : { uri: 'file:///android_asset/page/courseVideo.html' }} />
+
+                    {/*<View style={styles.container} onLayout={this._onLayout}>*/}
+                        {/*<View style={{ width: this.state.videoWidth, height: this.state.videoHeight, backgroundColor:'#000000' }}>*/}
+                            {/*<Video*/}
+                                {/*ref={(ref) => this.videoPlayer = ref}*/}
+                                {/*source={{uri: this.state.videoUrl}}*/}
+                                {/*rate={1.0}*/}
+                                {/*volume={1.0}*/}
+                                {/*muted={false}*/}
+                                {/*paused={!this.state.isPlaying}*/}
+                                {/*resizeMode={'contain'}*/}
+                                {/*playWhenInactive={false}*/}
+                                {/*playInBackground={false}*/}
+                                {/*ignoreSilentSwitch={'ignore'}*/}
+                                {/*progressUpdateInterval={250.0}*/}
+                                {/*onLoadStart={this._onLoadStart}*/}
+                                {/*onLoad={this._onLoaded}*/}
+                                {/*onProgress={this._onProgressChanged}*/}
+                                {/*onEnd={this._onPlayEnd}*/}
+                                {/*onError={this._onPlayError}*/}
+                                {/*onBuffer={this._onBuffering}*/}
+                                {/*style={{width: this.state.videoWidth, height: this.state.videoHeight}}*/}
+                            {/*/>*/}
+                            {/*{*/}
+                                {/*this.state.showVideoCover ?*/}
+                                    {/*<Image*/}
+                                        {/*style={{*/}
+                                            {/*position:'absolute',*/}
+                                            {/*top: 0,*/}
+                                            {/*left: 0,*/}
+                                            {/*width: this.state.videoWidth,*/}
+                                            {/*height: this.state.videoHeight*/}
+                                        {/*}}*/}
+                                        {/*resizeMode={'cover'}*/}
+                                        {/*source={{uri: this.state.videoCover}}*/}
+                                    {/*/> : null*/}
+                            {/*}*/}
+                            {/*<TouchableWithoutFeedback onPress={() => { this.hideControl() }}>*/}
+                                {/*<View*/}
+                                    {/*style={{*/}
+                                        {/*position: 'absolute',*/}
+                                        {/*top: 0,*/}
+                                        {/*left: 0,*/}
+                                        {/*width: this.state.videoWidth,*/}
+                                        {/*height: this.state.videoHeight,*/}
+                                        {/*backgroundColor: this.state.isPlaying ? 'transparent' : 'rgba(0, 0, 0, 0.2)',*/}
+                                        {/*alignItems:'center',*/}
+                                        {/*justifyContent:'center'*/}
+                                    {/*}}>*/}
+                                    {/*{*/}
+                                        {/*this.state.isPlaying ? null :*/}
+                                            {/*<TouchableWithoutFeedback onPress={() => { this.onPressPlayButton() }}>*/}
+                                                {/*<Image*/}
+                                                    {/*style={styles.playButton}*/}
+                                                    {/*source={require('../img/play.png')}*/}
+                                                {/*/>*/}
+                                            {/*</TouchableWithoutFeedback>*/}
+                                    {/*}*/}
+                                {/*</View>*/}
+                            {/*</TouchableWithoutFeedback>*/}
+                            {/*{*/}
+                                {/*this.state.showVideoControl ?*/}
+                                    {/*<View style={[styles.control, {width: this.state.videoWidth}]}>*/}
+                                        {/*<TouchableOpacity activeOpacity={0.3} onPress={() => { this.onControlPlayPress() }}>*/}
+                                            {/*<Image*/}
+                                                {/*style={styles.playControl}*/}
+                                                {/*source={this.state.isPlaying ? require('../img/pause.png') : require('../img/play.png')}*/}
+                                            {/*/>*/}
+                                        {/*</TouchableOpacity>*/}
+                                        {/*<Text style={styles.time}>{formatTime(this.state.currentTime)}</Text>*/}
+                                        {/*<Slider*/}
+                                            {/*style={{flex: 1}}*/}
+                                            {/*maximumTrackTintColor={'#999999'}*/}
+                                            {/*thumbTintColor={'#fff'}*/}
+                                            {/*minimumTrackTintColor={'#f00'}*/}
+                                            {/*// thumbImage={require('../img/play.png')}*/}
+                                            {/*value={this.state.currentTime}*/}
+                                            {/*minimumValue={0}*/}
+                                            {/*maximumValue={this.state.duration}*/}
+                                            {/*onValueChange={(currentTime) => { this.onSliderValueChanged(currentTime) }}*/}
+                                        {/*/>*/}
+                                        {/*<Text style={styles.time}>{formatTime(this.state.duration)}</Text>*/}
+                                        {/*<TouchableOpacity activeOpacity={0.3} onPress={() => { this.onControlShrinkPress() }}>*/}
+                                            {/*<Image*/}
+                                                {/*style={styles.shrinkControl}*/}
+                                                {/*source={this.state.isFullScreen ? require('../img/expand.png') : require('../img/expand.png')}*/}
+                                            {/*/>*/}
+                                        {/*</TouchableOpacity>*/}
+                                    {/*</View> : null*/}
+                            {/*}*/}
+                            {/*/!*<Text>{this.state.videoUrl}</Text>*!/*/}
+
+                        {/*</View>*/}
+                    {/*</View>*/}
+
                     {/*</View>*/}
                     {/*课件*/}
-                    <View style={styles.pptContainer}>
+                    <TouchableOpacity style={styles.pptContainer} onLongPress={this.clickppt}>
                         {this.renderBanner()}
                         <View style={{color:'#000',marginLeft:5,marginTop:5}}>
                             <Text>当前第{this.state.currpptIndex + 1}/{this.state.pptArray.length}页</Text>
                         </View>
 
-                    </View>
+                    </TouchableOpacity>
                     {/*评论*/}
                     <View>
 
