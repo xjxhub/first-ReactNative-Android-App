@@ -8,11 +8,13 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, WebView,View, Dimensions, Image, Text, Slider, TouchableWithoutFeedback, TouchableOpacity, Button, StyleSheet} from 'react-native';
+import {Platform,View, Dimensions, Image, Text, Slider, TouchableWithoutFeedback, TouchableOpacity, Button, StyleSheet} from 'react-native';
 import Video from 'react-native-video';
 import Orientation from 'react-native-orientation';
 import {Tabs} from '@ant-design/react-native';
 import Swiper from 'react-native-swiper';
+// import WebView from 'react-native-android-fullscreen-webview-video';
+import { WebView } from "react-native-webview";
 
 type
 Props = {};
@@ -140,6 +142,7 @@ export default class CourseDetail extends Component<Props> {
     }
 
     componentDidMount() {
+        this.refs.webview.postMessage('"Hello" 我是RN发送过来的数据');
          fetch("http://192.168.0.250:8004/readResource/ppt", {
             method: 'POST',
             headers: {
@@ -320,6 +323,7 @@ export default class CourseDetail extends Component<Props> {
         })
     }
 
+
     /// 切换视频并可以指定视频开始播放的时间，提供给外部调用
     // switchVideo(videoURL, seekTime) {
     //     this.setState({
@@ -351,9 +355,9 @@ export default class CourseDetail extends Component<Props> {
                     {/*<View style={styles.style}>*/}
                     {/*微课*/}
 
-                    {/*<WebView source={require('../html/courseVideo.html')}/>*/}
-
-                    <WebView source={(Platform.OS == 'ios') ? require('../html/courseVideo.html') : { uri: 'file:///android_asset/page/courseVideo.html' }} />
+                    <WebView ref="webview"
+                             source={(Platform.OS == 'ios') ? require('../html/courseVideo.html') : { uri: 'file:///android_asset/page/courseVideo.html' }}>
+                    </WebView>
 
                     {/*<View style={styles.container} onLayout={this._onLayout}>*/}
                         {/*<View style={{ width: this.state.videoWidth, height: this.state.videoHeight, backgroundColor:'#000000' }}>*/}

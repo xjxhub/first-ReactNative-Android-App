@@ -2,9 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <style type="text/css">
+        video{
+            width:100%;
+
+        }
+    </style>
     <title>Title</title>
 </head>
 <body>
-<div>123</div>
+<video id="video" controls="controls">
+    您的浏览器不支持 video 标签。
+</video>
+<div id="youyou">aa</div>
+<p></p>
+<p></p>
 </body>
+
+<script>
+//    document.addEventListener('message', function (textValue) {
+//
+//        let data = textValue.data;
+//        alert(data)
+//        document.getElementById('youyou').innerHTML = data
+//    })
+    document.addEventListener('message', function(e) {
+        messagesReceivedFromReactNative += 1;
+        document.getElementsByTagName('p')[0].innerHTML =
+            '从React Native接收的消息: ' + messagesReceivedFromReactNative;
+        document.getElementsByTagName('p')[1].innerHTML = e.data;
+    });
+    var video='http://baobab.kaiyanapp.com/api/v1/playUrl?vid=121398&resourceType=video&editionType=normal&source=aliyun'
+    document.getElementById("video").src = video;
+</script>
 </html>
