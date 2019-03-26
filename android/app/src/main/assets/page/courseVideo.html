@@ -11,28 +11,22 @@
     <title>Title</title>
 </head>
 <body>
-<video id="video" controls="controls">
+<video id="video" controls="controls" controlslist="nodownload">
     您的浏览器不支持 video 标签。
 </video>
-<div id="youyou">aa</div>
-<p></p>
-<p></p>
+<!--<div id="youyou">44</div>-->
 </body>
 
 <script>
-//    document.addEventListener('message', function (textValue) {
-//
-//        let data = textValue.data;
+    window.document.addEventListener('message', function (textValue) {
+        var data = textValue.data;
 //        alert(data)
 //        document.getElementById('youyou').innerHTML = data
-//    })
-    document.addEventListener('message', function(e) {
-        messagesReceivedFromReactNative += 1;
-        document.getElementsByTagName('p')[0].innerHTML =
-            '从React Native接收的消息: ' + messagesReceivedFromReactNative;
-        document.getElementsByTagName('p')[1].innerHTML = e.data;
-    });
-    var video='http://baobab.kaiyanapp.com/api/v1/playUrl?vid=121398&resourceType=video&editionType=normal&source=aliyun'
-    document.getElementById("video").src = video;
+//        var video=data
+//        document.getElementById("video").src = "http://192.168.0.250:8004/resource/EV系列-1-2- 用电安全与紧急应对/高压危害与救助方法-微课.mp4";
+        document.getElementById("video").src =data
+    })
+
+
 </script>
 </html>

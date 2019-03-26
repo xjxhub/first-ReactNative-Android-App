@@ -13,8 +13,8 @@ import Video from 'react-native-video';
 import Orientation from 'react-native-orientation';
 import {Tabs} from '@ant-design/react-native';
 import Swiper from 'react-native-swiper';
-// import WebView from 'react-native-android-fullscreen-webview-video';
-import { WebView } from "react-native-webview";
+import WebView from 'react-native-android-fullscreen-webview-video';
+// import { WebView } from "react-native-webview";
 
 type
 Props = {};
@@ -142,7 +142,10 @@ export default class CourseDetail extends Component<Props> {
     }
 
     componentDidMount() {
-        this.refs.webview.postMessage('"Hello" 我是RN发送过来的数据');
+        setTimeout(() => {
+            this.refs.webview.postMessage(this.state.videoUrl);
+        }, 1000);
+        
          fetch("http://192.168.0.250:8004/readResource/ppt", {
             method: 'POST',
             headers: {
@@ -323,6 +326,10 @@ export default class CourseDetail extends Component<Props> {
         })
     }
 
+    // 切换tab的方法，但是很神奇index没有弹出却解决了关键问题往html传值，我也不知道为嘛虽然这不是我的本意
+    tableChanged(index){
+        alert(index)
+    }
 
     /// 切换视频并可以指定视频开始播放的时间，提供给外部调用
     // switchVideo(videoURL, seekTime) {
@@ -347,7 +354,7 @@ export default class CourseDetail extends Component<Props> {
                 {/*<Text style={styles.title}>*/}
                     {/*title*/}
                 {/*</Text>*/}
-                <Tabs tabs={tabs} style={{color:"#000"}}>
+                <Tabs tabs={tabs} style={{color:"#000"}} onChange={(index) =>this.tableChanged}>
                     {/*简介*/}
                     <View style={styles.style}>
                         <Text>{this.courseItem.describe}</Text>
