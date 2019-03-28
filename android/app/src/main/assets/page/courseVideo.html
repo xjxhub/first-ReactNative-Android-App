@@ -2,31 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <style type="text/css">
-        video{
-            width:100%;
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>演示：DPlayer – H5视频播放器支持弹幕</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/DPlayer.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/demo.css">
+    <style>
 
-        }
     </style>
-    <title>Title</title>
 </head>
 <body>
-<video id="video" controls="controls" controlslist="nodownload">
+<div class="container">
 
-</video>
-<div id="youyou">44</div>
-</body>
+    <div id="dplayer"></div>
 
+</div>
+
+<script src="../js/DPlayer.min.js"></script>
 <script>
     window.document.addEventListener('message', function (textValue) {
         var data = textValue.data;
-//        alert(data)
-        document.getElementById('youyou').innerHTML = data
-//        var video=data
-//        document.getElementById("video").src = "http://192.168.0.250:8010/resource/EV系列-2-2-检修动力电池管理系统故障/更换动力电池BMS-10.24-微课.mp4";
-        document.getElementById("video").src =data
+        const dp = new DPlayer({
+            container: document.getElementById('dplayer'),
+            screenshot: false,
+            video: {
+                url: data,
+//                pic: 'http://static.smartisanos.cn/pr/img/video/video_03_cc87ce5bdb.jpg',
+//                thumbnails: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara_thumbnails.jpg',
+            }
+        });
     })
 
-
 </script>
+</body>
 </html>
