@@ -247,7 +247,11 @@ export default class CourseDetail extends Component<Props> {
                 {/*<Text style={styles.title}>*/}
                     {/*title*/}
                 {/*</Text>*/}
-                <Tabs tabs={tabs} style={{color:"#000"}} onChange={(index) =>this.tableChanged}>
+                <Tabs tabs={tabs}
+                      renderUnderline={() => null}
+                      tabBarActiveTextColor={'#7a1213'}
+                      style={{topTabBarSplitLine: {borderBottomWidth: 0},color:"#000"}}
+                      onChange={(index) =>this.tableChanged}>
                     {/*简介*/}
                     <View style={styles.style}>
                         <Text>{this.courseItem.describe}</Text>
