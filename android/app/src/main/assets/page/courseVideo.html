@@ -12,18 +12,18 @@
 </head>
 <body>
 <video id="video" controls="controls" controlslist="nodownload">
-    您的浏览器不支持 video 标签。
+
 </video>
-<!--<div id="youyou">44</div>-->
+<div id="youyou">44</div>
 </body>
 
 <script>
     window.document.addEventListener('message', function (textValue) {
         var data = textValue.data;
 //        alert(data)
-//        document.getElementById('youyou').innerHTML = data
+        document.getElementById('youyou').innerHTML = data
 //        var video=data
-//        document.getElementById("video").src = "http://192.168.0.250:8004/resource/EV系列-1-2- 用电安全与紧急应对/高压危害与救助方法-微课.mp4";
+//        document.getElementById("video").src = "http://192.168.0.250:8010/resource/EV系列-2-2-检修动力电池管理系统故障/更换动力电池BMS-10.24-微课.mp4";
         document.getElementById("video").src =data
     })
 

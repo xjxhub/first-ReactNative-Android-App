@@ -8,12 +8,13 @@
  */
 
 import React, {Component} from 'react';
-import {TextInput,Platform,View, Dimensions, Image, Text, Slider, TouchableWithoutFeedback, TouchableOpacity, Button, StyleSheet} from 'react-native';
+import {ScrollView,TextInput,Platform,View, Dimensions, Image, Text, Slider, TouchableWithoutFeedback, TouchableOpacity, StyleSheet} from 'react-native';
 import Video from 'react-native-video';
 import Orientation from 'react-native-orientation';
-import {Tabs} from '@ant-design/react-native';
+import {Button,Tabs} from '@ant-design/react-native';
 import Swiper from 'react-native-swiper';
 import WebView from 'react-native-android-fullscreen-webview-video';
+import StarRating from 'react-native-star-rating';
 // import { WebView } from "react-native-webview";
 
 type
@@ -42,17 +43,35 @@ export default class CourseDetail extends Component<Props> {
             allpptPage:0,
             pptArray:[],
             swiperShow: false,
-            videoUrl: "http://192.168.0.250:8004/resource/"+ this.courseItem.title + '/' + this.courseItem.video,
+            videoUrl: "http://192.168.0.250:8010/resource/"+ this.courseItem.title + '/' + this.courseItem.video,
             // videoUrl: "http://124.129.157.208:8810/SD/2017qingdao/xiaoxueEnglish/grade3/b/1.mp4",
             videoCover: "http://192.168.0.250:8004/resource/"+ this.courseItem.title + '/' + this.courseItem.url,
             fetchDataGet:55,
             fetchDataPost:66,
-            textConent:''
+            text:'',
+            starCount: 0,
+            starCourse: 0,
+            starTeacher: 0,
+            allCommentData:[{
+                name:'xjx',
+                starLevel:4,
+                time:'123',
+                content:'aaa'
+            },{
+                name:'www',
+                starLevel:3,
+                time:'546',
+                content:'ff'
+            }],
+            showReply:false,
+            replyText:'',
+            clickReplyIndex:''
+
         };
     }
 
     // 轮播图
-    renderBanner() {
+    renderBanner = () => {
         if (this.state.swiperShow) {
             console.log ('返回值' + this.state.swiperShow);
             return (
@@ -97,7 +116,7 @@ export default class CourseDetail extends Component<Props> {
     }
 
     // 长按PPT
-    clickppt(){
+    clickppt = () => {
         // alert(this.state.currScreenState)
     }
 
@@ -109,7 +128,7 @@ export default class CourseDetail extends Component<Props> {
         setTimeout(() => {
             this.refs.webview.postMessage(this.state.videoUrl);
         }, 1000);
-        
+
          fetch("http://192.168.0.250:8004/readResource/ppt", {
             method: 'POST',
             headers: {
@@ -127,6 +146,7 @@ export default class CourseDetail extends Component<Props> {
                 });
             })
         this.swiperFunction()
+        // clearTimeout(Timer)
     }
     // PPT
     swiperFunction(){
@@ -140,6 +160,79 @@ export default class CourseDetail extends Component<Props> {
     // 切换tab的方法，但是很神奇index没有弹出却解决了关键问题往html传值，我也不知道为嘛虽然这不是我的本意
     tableChanged(index){
         alert(index)
+    }
+
+    // 综合评价
+    onStarRatingPress = (rating) => {
+        this.setState({
+            starCount: rating
+        });
+    }
+
+    // 教学内容评价
+    onStarRatingPressCourse = (rating) => {
+        this.setState({
+            starCourse: rating
+        });
+    }
+
+    // 任课老师评价
+    onStarRatingPressTeacher = (rating) => {
+        this.setState({
+            starTeacher: rating
+        });
+    }
+
+    // 点击提交存数据
+    submitComment = () => {
+        // alert( this.state.text )
+        this.setState({
+            allCommentData: [{name:'xjx',time:'123',content:'ddd',starLevel:4}]
+        });
+    }
+
+    // 获取数据&&提交成功后重新请求&&回复成功后重新请求
+    changeCommentData = () =>{
+        this.setState({
+            allCommentData: [{name:'xjx',time:'123',content:'ddd',starLevel:4}]
+        });
+    }
+
+    // 点击回复
+    replySubmitComment = (index) => {
+        // alert(index)
+        this.setState({
+            clickReplyIndex:index
+        });
+        if(!this.state.showReply){
+            this.setState({
+                showReply:true
+            });
+        }else{
+            this.setState({
+                showReply:false
+            });
+        }
+
+    }
+
+    // 点击回复中的确认
+    replySure = () => {
+
+    }
+
+    // 点击回复中的取消
+    replyCencel = (index) => {
+        // alert(index)
+        if(!this.state.showReply){
+            this.setState({
+                showReply:true
+            });
+        }else{
+            this.setState({
+                showReply:false
+            });
+        }
     }
 
     render() {
@@ -173,30 +266,94 @@ export default class CourseDetail extends Component<Props> {
                         </View>
                     </TouchableOpacity>
                     {/*评论*/}
-                    <View>
+                    <ScrollView>
                         <Text style={styles.commentTip}>全部评价</Text>
                         <View style={styles.allComment}>
+                            {this.state.allCommentData ?
+                                <View style={{marginLeft:15}}>
+                                    {
+                                        this.state.allCommentData.map((item,index) => {
+                                            return <View key={index}>
+                                                        <View style={styles.commentItem}>
+                                                            <Text style={{marginRight:5, fontSize:16,fontWeight:'bold'}}>{item.name}</Text>
+                                                            <StarRating
+                                                                fullStarColor={'#fabd3b'}
+                                                                starSize={16}
+                                                                disabled={true}
+                                                                maxStars={5}
+                                                                rating={item.starLevel}
+                                                            />
+                                                        </View>
+                                                        <Text style={styles.commentItemContent}>{item.content}</Text>
+                                                        <View style={styles.commentItemTime}>
+                                                            <Text>{item.time}</Text>
+                                                        </View>
+                                                        <Button onPress={() => this.replySubmitComment(index)} style={{width:50,marginBottom:5}} type="warning" size="middle">回复</Button>
+                                                        {this.state.showReply && this.state.clickReplyIndex === index ?
+                                                            <View>
+                                                                <TextInput
+                                                                    style={{height: 80, width:'96%', marginBottom:10, backgroundColor:'#ededed'}}
+                                                                    onChangeText={(text) => this.setState({text})}
+                                                                    value={this.state.replyText}
+                                                                />
+                                                                <View style={{flexDirection: 'row'}}>
+                                                                    <Button onPress={this.replySure} style={{width:50,marginTop:5,marginRight:10,marginBottom:10}} type="primary" size="middle">确定</Button>
+                                                                    <Button onPress={() => this.replyCencel(index)} style={{width:50,marginTop:5,marginBottom:10}} size="middle">取消</Button>
+                                                                </View>
+                                                            </View> : <Text> </Text>
 
+                                                        }
+                                                    </View>
+
+                                        })
+                                    }
+                                </View> :
+                                <View style={{alignItems:'center'}}><Text>暂无评论</Text></View>
+                            }
                         </View>
                         <Text style={styles.commentTip}>我要评价</Text>
                         <View style={styles.commentConent}>
-                            <View>
+                            <View style={styles.fontAndStar}>
                                 <Text>综合评价</Text>
+                                <StarRating
+                                    fullStarColor={'#fabd3b'}
+                                    starSize={14}
+                                    disabled={false}
+                                    maxStars={5}
+                                    rating={this.state.starCount}
+                                    selectedStar={(rating) => this.onStarRatingPress(rating)}
+                                />
                             </View>
                             <TextInput
-                                style={{height: 80, width:'100%', backgroundColor:'#ededed'}}
-                                onChangeText={(textConent) => this.setState({textConent})}
-                                value={this.state.textConent}
+                                style={{height: 80, width:'100%', marginBottom:10, backgroundColor:'#ededed'}}
+                                onChangeText={(text) => this.setState({text})}
+                                value={this.state.text}
                             />
-                            <View>
+                            <View style={styles.fontAndStar}>
                                 <Text>教学内容</Text>
+                                <StarRating
+                                    fullStarColor={'#fabd3b'}
+                                    starSize={14}
+                                    disabled={false}
+                                    maxStars={5}
+                                    rating={this.state.starCourse}
+                                    selectedStar={(rating) => this.onStarRatingPressCourse(rating)}
+                                />
                             </View>
-                            <View>
+                            <View style={styles.fontAndStar}>
                                 <Text>任课老师</Text>
+                                <StarRating
+                                    fullStarColor={'#fabd3b'}
+                                    starSize={14}
+                                    disabled={false}
+                                    maxStars={5}
+                                    rating={this.state.starTeacher}
+                                    selectedStar={(rating) => this.onStarRatingPressTeacher(rating)}
+                                />
                             </View>
                         </View>
-
-                    </View>
+                        <Button onPress={this.submitComment} style={{width:70,marginTop:15,marginLeft:10,marginBottom:10}} type="primary" size="middle">提交评论</Button>
+                    </ScrollView>
                 </Tabs>
             </View>
 
@@ -252,21 +409,45 @@ const styles = StyleSheet.create({
         marginLeft:10,
         padding:4,
         color:'#fff',
-        fontSize:16,
-        width:75,
+        fontSize:14,
+        width:70,
         borderRadius:20
     },
     allComment:{
 
     },
     commentConent:{
+        width:'98%',
+        marginRight:'1%',
+        marginLeft:'1%',
         borderWidth: 1,
-        borderColor: '#000',
+        borderColor: '#ccc',
         borderStyle: 'solid',
-        paddingTop:20,
-        paddingBottom:20,
+        paddingTop:15,
+        paddingBottom:15,
         paddingLeft:10,
         paddingRight:10
-
+    },
+    fontAndStar:{
+        flexDirection: 'row',
+        alignItems:'center',
+        marginBottom:10,
+    },
+    commentItem:{
+        width:'98%',
+        flexDirection: 'row',
+        alignItems:'center',
+        marginBottom:10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+        // borderBottomStyle: 'solid',
+    },
+    commentItemContent:{
+        marginLeft:'6%',
+        fontSize:17
+    },
+    commentItemTime:{
+        alignItems:'flex-end',
+        marginRight:'2%'
     }
 });
