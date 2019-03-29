@@ -10,12 +10,12 @@
 import React, {Component} from 'react';
 import {ScrollView,TextInput,Platform,View, Dimensions, Image, Text, Slider, TouchableWithoutFeedback, TouchableOpacity, StyleSheet} from 'react-native';
 import Video from 'react-native-video';
-import Orientation from 'react-native-orientation';
+// import Orientation from 'react-native-orientation';
 import {Button,Tabs} from '@ant-design/react-native';
 import Swiper from 'react-native-swiper';
-import WebView from 'react-native-android-fullscreen-webview-video';
+// import WebView from 'react-native-android-fullscreen-webview-video';
 import StarRating from 'react-native-star-rating';
-// import { WebView } from "react-native-webview";
+import { WebView } from "react-native-webview";
 
 type
 Props = {};

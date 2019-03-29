@@ -10,10 +10,10 @@
 import React, {Component} from 'react';
 import {Platform,View, Dimensions, Image, Text, Slider, TouchableWithoutFeedback, TouchableOpacity, Button, StyleSheet} from 'react-native';
 import Video from 'react-native-video';
-import Orientation from 'react-native-orientation';
+// import Orientation from 'react-native-orientation';
 import {Tabs} from '@ant-design/react-native';
 import Swiper from 'react-native-swiper';
-import WebView from 'react-native-android-fullscreen-webview-video';
+// import WebView from 'react-native-android-fullscreen-webview-video';
 // import { WebView } from "react-native-webview";
 
 type
@@ -124,22 +124,22 @@ export default class CourseDetail extends Component<Props> {
         // alert(this.state.currScreenState)
     }
 
-    componentWillMount(){
-        let initial = Orientation.getInitialOrientation();
-        if (initial === 'PORTRAIT') {
-            //do stuff
-            // alert("aaa")
-            this.setState({
-                currScreenState:11
-            })
-        } else {
-            //do other stuff
-            // alert("222")
-            this.setState({
-                currScreenState:22
-            })
-        }
-    }
+    // componentWillMount(){
+    //     let initial = Orientation.getInitialOrientation();
+    //     if (initial === 'PORTRAIT') {
+    //         //do stuff
+    //         // alert("aaa")
+    //         this.setState({
+    //             currScreenState:11
+    //         })
+    //     } else {
+    //         //do other stuff
+    //         // alert("222")
+    //         this.setState({
+    //             currScreenState:22
+    //         })
+    //     }
+    // }
 
     componentDidMount() {
         setTimeout(() => {
@@ -260,13 +260,13 @@ export default class CourseDetail extends Component<Props> {
     }
 
     /// 点击了工具栏上的全屏按钮
-    onControlShrinkPress() {
-        if (this.state.isFullScreen) {
-            Orientation.lockToPortrait();
-        } else {
-            Orientation.lockToLandscape();
-        }
-    }
+    // onControlShrinkPress() {
+    //     if (this.state.isFullScreen) {
+    //         Orientation.lockToPortrait();
+    //     } else {
+    //         Orientation.lockToLandscape();
+    //     }
+    // }
 
     /// 进度条值改变
     onSliderValueChanged(currentTime) {

@@ -4,9 +4,6 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
-import com.theweflex.react.WeChatPackage;
-import com.airship.customwebview.CustomWebViewPackage;
-import com.github.yamill.orientation.OrientationPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -32,9 +29,6 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new RNCWebViewPackage(),
-            new WeChatPackage(),
-            new CustomWebViewPackage(),
-            new OrientationPackage(),
             new ReactVideoPackage(),
             new VectorIconsPackage(),
             new LinearGradientPackage(),
