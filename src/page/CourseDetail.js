@@ -13,9 +13,9 @@ import Video from 'react-native-video';
 // import Orientation from 'react-native-orientation';
 import {Button,Tabs} from '@ant-design/react-native';
 import Swiper from 'react-native-swiper';
-// import WebView from 'react-native-android-fullscreen-webview-video';
+import WebView from 'react-native-android-fullscreen-webview-video';
 import StarRating from 'react-native-star-rating';
-import { WebView } from "react-native-webview";
+// import { WebView } from "react-native-webview";
 
 type
 Props = {};
@@ -261,6 +261,9 @@ export default class CourseDetail extends Component<Props> {
                     <WebView ref="webview"
                              source={(Platform.OS == 'ios') ? require('../html/courseVideo.html') : { uri: 'file:///android_asset/page/courseVideo.html' }}>
                     </WebView>
+                    {/*<WebView ref="webview"*/}
+                             {/*source={(Platform.OS == 'ios') ? require('../html/courseVideo.html') : { uri: 'https://www.baidu.com/' }}>*/}
+                    {/*</WebView>*/}
 
                     {/*课件*/}
                     <TouchableOpacity style={styles.pptContainer} onLongPress={this.clickppt}>
