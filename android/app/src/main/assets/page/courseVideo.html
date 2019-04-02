@@ -20,9 +20,12 @@
 </div>
 
 <script src="../js/DPlayer.min.js"></script>
+<script src="../js/hls.min.js"></script>
 <script>
     window.document.addEventListener('message', function (textValue) {
         var data = textValue.data;
+        // 视频播放
+
         const dp = new DPlayer({
             container: document.getElementById('dplayer'),
             screenshot: false,
@@ -32,6 +35,16 @@
 //                thumbnails: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara_thumbnails.jpg',
             }
         });
+        var video = document.getElementById('dplayer');
+        if(Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource(data);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED,function() {
+                // video.play();
+            });
+        }
+
     })
 
 </script>
