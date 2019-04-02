@@ -8,10 +8,10 @@
  */
 
 import React, {Component} from 'react';
-import {Image, Dimensions, StyleSheet, Text, View} from 'react-native';
+import {BackHandler, Image, Dimensions, StyleSheet, Text, View} from 'react-native';
 import Swiper from 'react-native-swiper';
-import Ionicons from 'react-native-vector-icons/Ionicons'
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Orientation from 'react-native-orientation-locker';
 
 type Props = {};
 const screenWidth = Dimensions.get('window').width;
@@ -33,8 +33,10 @@ export default class Page1 extends Component<Props> {
         };
     }
 
+
     // 请求PPT
     componentDidMount() {
+// alert(height)
         fetch("http://192.168.0.250:8004/readResource/ppt", {
             method: 'POST',
             headers: {
@@ -128,7 +130,7 @@ export default class Page1 extends Component<Props> {
     render() {
         const {navigation}=this.props
         return (
-            <View style={{backgroundColor:'#000',width:width,height:height}}>
+            <View style={styles.coat}>
                 <View style={styles.pptContainer}>
                     {this.renderBanner()}
                     {/*<Text style={{color:'#fff'}} onPress={this.clickSmall}>缩小</Text>*/}
@@ -142,18 +144,44 @@ export default class Page1 extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
+    coat:{
+        width:'160%',
+        height:'100%',
+        // borderWidth: 5,
+        // borderColor: '#000',
+        // backgroundColor:'#000',
+        borderStyle: 'solid',
+        transform:[{translateX:100},{rotateZ:'-270deg'}],
+        // position:'absolute',
+        marginLeft:'-35%',
+        // zIndex:2
+
+    },
     pptContainer: {
-        height:width * 40 / 35,
-        marginTop:'50%',
+        height:'100%',
+        backgroundColor:'#fff',
+        // borderWidth: 1,
+        // borderColor: '#000',
+        // borderStyle: 'solid',
+
+        // position: 'absolute',
+        // top: 50,
+        // right: 50
+        // marginLeft:'-15%',
     },
     wrpaper: {
-        width: width,
-        height:width * 40 / 65,
+        transform:[{translateX:100},{rotateZ:'-270deg'}],
+        width: '100%',
+        height:'100%',
 
     },
     bannerImg:{
-        width:width,
-        height:width * 40 / 65,
+        // position: 'absolute',
+        // bottom: 0,
+        // right: 0,
+        width:'100%',
+        height:'64%',
+        marginTop:'30%',
     },
     paginationStyle: {
         position: 'absolute',

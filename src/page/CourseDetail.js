@@ -29,6 +29,8 @@ import WebView from 'react-native-android-fullscreen-webview-video';
 import StarRating from 'react-native-star-rating';
 // import { WebView } from "react-native-webview";
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import Orientation from 'react-native-orientation-locker';
+
 
 type
 Props = {};
@@ -139,11 +141,22 @@ export default class CourseDetail extends Component<Props> {
         })
     }
 
+    // 长按PPT
+    clickppt1 = () => {
+        const {navigation} = this.props
+        navigation.navigate("Page1", {
+            index: this.state.currpptIndex,
+            reqPath: this.courseItem.title + '/' + this.state.currCourseItemPPT
+        })
+    }
+
     componentWillMount() {
 
     }
 
     componentDidMount() {
+
+
         setTimeout(() => {
             this.refs.webview.postMessage(this.state.videoUrl);
         }, 1000);
@@ -296,7 +309,7 @@ export default class CourseDetail extends Component<Props> {
                                           size={26}/>
                             </View>
 
-                            {/*<Text>全屏</Text>*/}
+                            <Text onPress={this.clickppt1}>全屏</Text>
                         </View>
                     </View>
                     {/*评论*/}

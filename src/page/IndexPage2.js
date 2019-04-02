@@ -10,7 +10,7 @@
 import React, {Component} from 'react';
 import {Image, TouchableOpacity, Platform, StyleSheet, Text, View, ScrollView} from 'react-native';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons'
-
+import Orientation from 'react-native-orientation-locker';
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -34,6 +34,7 @@ export default class Page2 extends Component<Props> {
     }
 
     componentDidMount() {
+        Orientation.lockToPortrait();
         // return fetch('http://192.168.0.250:8003/readResource/bar')
         //    .then((response) => response.json())
         //    .then((res) => {
