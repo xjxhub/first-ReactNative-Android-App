@@ -5,7 +5,7 @@ import WelcomePage from '../src/page/WelcomePage'
 import HomePage from '../src/page/HomePage'
 import Page1 from '../src/page/Page1'
 import IndexPage2 from '../src/page/IndexPage2'
-import Page3 from '../src/page/Page3'
+import Reppt from '../src/page/Reppt'
 import Page4 from '../src/page/Page4'
 import Page5 from '../src/page/Page5'
 import CourseDetail from '../src/page/CourseDetail'
@@ -147,20 +147,10 @@ const stackNavigator=createStackNavigator({
             }
         })
     },
-    Page3:{
-        screen:Page3,
-        navigationOptions:(props)=>{
-            const {navigation}=props
-            const{state,setParams}=navigation
-            const {params}=state
-            return{
-                title:params.title?params.title:'Page3',
-                headerRight:(
-                    <Button
-                        title={params.mode==='edit'?'保存':'编辑'}
-                        onPress={()=>setParams({mode:params.mode==='edit'?'':'edit'})}/>
-                )
-            }
+    Reppt:{
+        screen:Reppt,
+        navigationOptions:{
+            header:null
         }
     },
 
