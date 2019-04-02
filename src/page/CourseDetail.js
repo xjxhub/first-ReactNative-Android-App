@@ -290,7 +290,7 @@ export default class CourseDetail extends Component<Props> {
                         {this.renderBanner()}
                         <View style={{alignItems:'center', flexDirection: 'row', color: '#000', marginLeft: 5, marginTop: 5}}>
                             <Text>当前第{this.state.currpptIndex + 1}/{this.state.pptArray.length}页</Text>
-                            <View style={{marginLeft:"70%"}}>
+                            <View style={{marginLeft:"60%"}}>
                                 <Ionicons onPress={this.clickppt}
                                           name={'md-expand'}
                                           size={26}/>

@@ -112,12 +112,12 @@ export default class Page2 extends Component<Props> {
             })
     }
 
-    jumpToCourseDetail = (item,index) => {
+    jumpToCourseDetail = (item, index) => {
         const {navigation} = this.props
         navigation.navigate("CourseDetail", {
             index: index,
-            item:item,
-            name:item.title
+            item: item,
+            name: item.title
         })
         console.log('11')
     }
@@ -132,7 +132,7 @@ export default class Page2 extends Component<Props> {
                             <Ionicons style={styles.bestTestIcon} name={'tag-text-outline'} size={16}/>
                             精品课程
                         </Text>
-                        <View className="bestCourseTop" style={{flex: 1, flexDirection: 'row', marginBottom: 30}}>
+                        <View className="bestCourseTop" style={{flex: 1, flexDirection: 'row', marginBottom: 30, paddingBottom:10}}>
                             {/*<View style={styles.bestCourseTopItem}>*/}
                             {/*<Text>111</Text>*/}
                             {/*</View>*/}
@@ -143,12 +143,23 @@ export default class Page2 extends Component<Props> {
                                 this.state.bestCourseData.map((item, index) => {
                                     return <TouchableOpacity key={index}
                                                              style={styles.bestCourseTopItem} onPress={() => {
-                                        this.jumpToCourseDetail(item,index)
+                                        this.jumpToCourseDetail(item, index)
                                     }}>
-                                        <Image
-                                            style={{width: 180, height: 100}}
-                                            source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}
-                                        />
+                                        {index === 0 ?
+                                            <Image style={{width: 180, height: 100}}
+                                                   source={require('../img/index1.png')}
+                                            /> : index === 1 ?
+                                                <Image style={{width: 180, height: 100}}
+                                                       source={require('../img/index2.png')}
+                                                /> : <Image style={{width: 180, height: 100}}
+                                                            source={require('../img/index1.png')}
+                                                />
+                                        }
+
+                                        {/*<Image*/}
+                                        {/*style={{width: 180, height: 100}}*/}
+                                        {/*source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}*/}
+                                        {/*/>*/}
                                         <Text style={styles.bestCourseTopItemTitle}>{item.title}</Text>
                                     </TouchableOpacity>
 
@@ -173,16 +184,33 @@ export default class Page2 extends Component<Props> {
                             {/*</View>*/}
                             {
                                 this.state.bestCourseBottomData.map((item, index) => {
-                                    return <TouchableOpacity key={index} style={styles.bestCourseBottomItem} onPress={() => {
-                                                                                                this.jumpToCourseDetail(item,index)
-                                                                                            }}>
+                                    return <TouchableOpacity key={index} style={styles.bestCourseBottomItem}
+                                                             onPress={() => {
+                                                                 this.jumpToCourseDetail(item, index)
+                                                             }}>
                                         <View style={styles.bestCourseBottomItemImg}>
-                                            <Image
-                                                style={{width: 150, height: 80}}
-                                                source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}
-                                            />
+                                            {index === 0 ?
+                                                <Image style={{width: 150, height: 80}}
+                                                       source={require('../img/index3.png')}
+                                                /> : index === 1 ?
+                                                    <Image style={{width: 150, height: 80}}
+                                                           source={require('../img/index4.png')}
+                                                    /> : index === 2 ?
+                                                        <Image style={{width: 150, height: 80}}
+                                                               source={require('../img/index5.png')}
+                                                        /> : index === 3 ?
+                                                            <Image style={{width: 150, height: 80}}
+                                                                   source={require('../img/index1.png')}
+                                                            /> : index === 4 ?
+                                                                <Image style={{width: 150, height: 80}}
+                                                                       source={require('../img/index2.png')}
+                                                                /> : <Image style={{width: 150, height: 80}}
+                                                                            source={require('../img/index1.png')}
+                                                                />
+                                            }
                                             {/*<Image*/}
-                                                {/*source={require('../img/pause.png')}*/}
+                                            {/*style={{width: 150, height: 80}}*/}
+                                            {/*source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}*/}
                                             {/*/>*/}
                                         </View>
                                         <View style={styles.bestCourseBottomItemFont}>
@@ -205,12 +233,22 @@ export default class Page2 extends Component<Props> {
                                 this.state.suggestCourseData.map((item, index) => {
                                     return <TouchableOpacity key={index}
                                                              style={styles.bestCourseTopItem} onPress={() => {
-                                        this.jumpToCourseDetail(item,index)
+                                        this.jumpToCourseDetail(item, index)
                                     }}>
-                                        <Image
-                                            style={{width: 180, height: 100}}
-                                            source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}
-                                        />
+                                        {index === 0 ?
+                                            <Image style={{width: 180, height: 100}}
+                                                   source={require('../img/index3.png')}
+                                            /> : index === 1 ?
+                                                <Image style={{width: 180, height: 100}}
+                                                       source={require('../img/index5.png')}
+                                                /> : <Image style={{width: 180, height: 100}}
+                                                            source={require('../img/index1.png')}
+                                                />
+                                        }
+                                        {/*<Image*/}
+                                        {/*style={{width: 180, height: 100}}*/}
+                                        {/*source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}*/}
+                                        {/*/>*/}
                                         <Text style={styles.bestCourseTopItemTitle}>{item.title}</Text>
                                     </TouchableOpacity>
 
@@ -220,14 +258,34 @@ export default class Page2 extends Component<Props> {
                         <View className="bestCourseBottom">
                             {
                                 this.state.suggestCourseBottomData.map((item, index) => {
-                                    return <TouchableOpacity key={index} style={styles.bestCourseBottomItem} onPress={() => {
-                                                                                    this.jumpToCourseDetail(item,index)
-                                                                                }}>
+                                    return <TouchableOpacity key={index} style={styles.bestCourseBottomItem}
+                                                             onPress={() => {
+                                                                 this.jumpToCourseDetail(item, index)
+                                                             }}>
                                         <View style={styles.bestCourseBottomItemImg}>
-                                            <Image
-                                                style={{width: 150, height: 80}}
-                                                source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}
-                                            />
+                                            {index === 0 ?
+                                                <Image style={{width: 150, height: 80}}
+                                                       source={require('../img/index3.png')}
+                                                /> : index === 1 ?
+                                                    <Image style={{width: 150, height: 80}}
+                                                           source={require('../img/index4.png')}
+                                                    /> : index === 2 ?
+                                                        <Image style={{width: 150, height: 80}}
+                                                               source={require('../img/index5.png')}
+                                                        /> : index === 3 ?
+                                                            <Image style={{width: 150, height: 80}}
+                                                                   source={require('../img/index2.png')}
+                                                            /> : index === 4 ?
+                                                                <Image style={{width: 150, height: 80}}
+                                                                       source={require('../img/index1.png')}
+                                                                /> : <Image style={{width: 150, height: 80}}
+                                                                            source={require('../img/index1.png')}
+                                                                />
+                                            }
+                                            {/*<Image*/}
+                                            {/*style={{width: 150, height: 80}}*/}
+                                            {/*source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}*/}
+                                            {/*/>*/}
                                         </View>
                                         <View style={styles.bestCourseBottomItemFont}>
                                             <Text style={styles.bestCourseBottomItemFontTit}>{item.title}</Text>
@@ -271,13 +329,13 @@ const styles = StyleSheet.create({
         marginLeft: 17,
         marginTop: 20,
     },
-    bestCourseTopItemTitle:{
-        marginTop:15,
-        fontSize:16,
-        color:'#000',
+    bestCourseTopItemTitle: {
+        marginTop: 15,
+        fontSize: 16,
+        color: '#000',
     },
     bestCourseBottomItem: {
-        width:'98%',
+        width: '98%',
         height: 100,
         backgroundColor: '#fff',
         // borderWidth: 1,
@@ -288,10 +346,10 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginRight: 5,
         flexDirection: 'row',
-        overflow:'hidden'
+        overflow: 'hidden'
     },
     bestCourseBottomItemImg: {
-        width: 150,
+        width: '37%',
         height: 80,
         // borderWidth: 1,
         // borderColor: '#000',
@@ -300,6 +358,7 @@ const styles = StyleSheet.create({
         marginTop: 8
     },
     bestCourseBottomItemFont: {
+        width: '50%',
         marginLeft: 20,
         marginTop: 7
     },
@@ -308,7 +367,8 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     bestCourseBottomItemFontDes: {
-        width:'42%',
+        width: '100%',
+        overflow:'hidden'
     },
     suggestCourse: {
         backgroundColor: 'rgb(244,244,244)',
