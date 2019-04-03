@@ -3,7 +3,7 @@ import React from 'react'
 import {Button,Platform} from 'react-native'
 import WelcomePage from '../src/page/WelcomePage'
 import HomePage from '../src/page/HomePage'
-import Page1 from '../src/page/Page1'
+import Reppt1 from '../src/page/Reppt1'
 import IndexPage2 from '../src/page/IndexPage2'
 import Reppt from '../src/page/Reppt'
 import Page4 from '../src/page/Page4'
@@ -132,11 +132,14 @@ const stackNavigator=createStackNavigator({
         }
     },
 
-    Page1:{
-        screen:Page1,
-        navigationOptions:({navigation})=>({
-            title:`${navigation.state.params.name}页面名`
-        })
+    Reppt1:{
+        screen:Reppt1,
+        // navigationOptions:({navigation})=>({
+        //     title:`${navigation.state.params.name}页面名`
+        // })
+        navigationOptions:{
+            header:null
+        }
     },
     CourseDetail:{
         screen:CourseDetail,

@@ -147,18 +147,18 @@ export default class Page2 extends Component<Props> {
                                         this.jumpToCourseDetail(item, index)
                                     }}>
                                         {index === 0 ?
-                                            <Image style={{width: 180, height: 100}}
+                                            <Image style={{width: '100%', height: 100}}
                                                    source={require('../img/index1.png')}
                                             /> : index === 1 ?
-                                                <Image style={{width: 180, height: 100}}
+                                                <Image style={{width: '100%', height: 100}}
                                                        source={require('../img/index2.png')}
-                                                /> : <Image style={{width: 180, height: 100}}
+                                                /> : <Image style={{width: '100%', height: 100}}
                                                             source={require('../img/index1.png')}
                                                 />
                                         }
 
                                         {/*<Image*/}
-                                        {/*style={{width: 180, height: 100}}*/}
+                                        {/*style={{width: '100%', height: 100}}*/}
                                         {/*source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}*/}
                                         {/*/>*/}
                                         <Text style={styles.bestCourseTopItemTitle}>{item.title}</Text>
@@ -237,17 +237,17 @@ export default class Page2 extends Component<Props> {
                                         this.jumpToCourseDetail(item, index)
                                     }}>
                                         {index === 0 ?
-                                            <Image style={{width: 180, height: 100}}
+                                            <Image style={{width: '100%', height: 100}}
                                                    source={require('../img/index3.png')}
                                             /> : index === 1 ?
-                                                <Image style={{width: 180, height: 100}}
+                                                <Image style={{width: '100%', height: 100}}
                                                        source={require('../img/index5.png')}
-                                                /> : <Image style={{width: 180, height: 100}}
+                                                /> : <Image style={{width: '100%', height: 100}}
                                                             source={require('../img/index1.png')}
                                                 />
                                         }
                                         {/*<Image*/}
-                                        {/*style={{width: 180, height: 100}}*/}
+                                        {/*style={{width: '100%', height: 100}}*/}
                                         {/*source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}*/}
                                         {/*/>*/}
                                         <Text style={styles.bestCourseTopItemTitle}>{item.title}</Text>
@@ -322,7 +322,7 @@ const styles = StyleSheet.create({
         color: '#f00'
     },
     bestCourseTopItem: {
-        width: 180,
+        width: '44%',
         height: 100,
         // borderWidth: 1,
         // borderColor: '#000',
@@ -360,7 +360,7 @@ const styles = StyleSheet.create({
     },
     bestCourseBottomItemFont: {
         width: '50%',
-        marginLeft: 20,
+        marginLeft: '4%',
         marginTop: 7
     },
     bestCourseBottomItemFontTit: {

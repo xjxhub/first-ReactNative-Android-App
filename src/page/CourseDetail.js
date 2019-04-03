@@ -132,7 +132,7 @@ export default class CourseDetail extends Component<Props> {
         });
     }
 
-    // 长按PPT
+    // 横屏放大
     clickppt = () => {
         const {navigation} = this.props
         navigation.navigate("Reppt", {
@@ -141,10 +141,10 @@ export default class CourseDetail extends Component<Props> {
         })
     }
 
-    // 长按PPT
+    // 竖屏放大
     clickppt1 = () => {
         const {navigation} = this.props
-        navigation.navigate("Page1", {
+        navigation.navigate("Reppt1", {
             index: this.state.currpptIndex,
             reqPath: this.courseItem.title + '/' + this.state.currCourseItemPPT
         })
@@ -303,13 +303,18 @@ export default class CourseDetail extends Component<Props> {
                         {this.renderBanner()}
                         <View style={{alignItems:'center', flexDirection: 'row', color: '#000', marginLeft: 5, marginTop: 5}}>
                             <Text>当前第{this.state.currpptIndex + 1}/{this.state.pptArray.length}页</Text>
-                            <View style={{marginLeft:"60%"}}>
+                            <View style={{marginLeft:"62%"}}>
+                                <Ionicons onPress={this.clickppt1}
+                                          name={'ios-expand'}
+                                          size={26}/>
+                            </View>
+                            <View style={{marginLeft:"2%"}}>
                                 <Ionicons onPress={this.clickppt}
                                           name={'md-expand'}
                                           size={26}/>
                             </View>
 
-                            <Text onPress={this.clickppt1}>全屏</Text>
+                            {/*<Text onPress={this.clickppt1}>全屏</Text>*/}
                         </View>
                     </View>
                     {/*评论*/}
