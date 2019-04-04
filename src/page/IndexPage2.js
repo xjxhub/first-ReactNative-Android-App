@@ -35,7 +35,7 @@ export default class Page2 extends Component<Props> {
 
     componentDidMount() {
         Orientation.lockToPortrait();
-        // return fetch('http://192.168.0.250:8003/readResource/bar')
+        // return fetch('http://192.168.0.251:8003/readResource/bar')
         //    .then((response) => response.json())
         //    .then((res) => {
         //        this.setState({
@@ -46,7 +46,7 @@ export default class Page2 extends Component<Props> {
         //
         //    });
 
-        return fetch('http://192.168.0.250:8004/readResource', {
+        return fetch('http://192.168.0.251:8004/readResource', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -159,7 +159,7 @@ export default class Page2 extends Component<Props> {
 
                                         {/*<Image*/}
                                         {/*style={{width: '100%', height: 100}}*/}
-                                        {/*source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}*/}
+                                        {/*source={{uri: 'http://192.168.0.251:8004/resource/'+ item.title + '/' + item.url}}*/}
                                         {/*/>*/}
                                         <Text style={styles.bestCourseTopItemTitle}>{item.title}</Text>
                                     </TouchableOpacity>
@@ -211,7 +211,7 @@ export default class Page2 extends Component<Props> {
                                             }
                                             {/*<Image*/}
                                             {/*style={{width: 150, height: 80}}*/}
-                                            {/*source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}*/}
+                                            {/*source={{uri: 'http://192.168.0.251:8004/resource/'+ item.title + '/' + item.url}}*/}
                                             {/*/>*/}
                                         </View>
                                         <View style={styles.bestCourseBottomItemFont}>
@@ -248,7 +248,7 @@ export default class Page2 extends Component<Props> {
                                         }
                                         {/*<Image*/}
                                         {/*style={{width: '100%', height: 100}}*/}
-                                        {/*source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}*/}
+                                        {/*source={{uri: 'http://192.168.0.251:8004/resource/'+ item.title + '/' + item.url}}*/}
                                         {/*/>*/}
                                         <Text style={styles.bestCourseTopItemTitle}>{item.title}</Text>
                                     </TouchableOpacity>
@@ -285,7 +285,7 @@ export default class Page2 extends Component<Props> {
                                             }
                                             {/*<Image*/}
                                             {/*style={{width: 150, height: 80}}*/}
-                                            {/*source={{uri: 'http://192.168.0.250:8004/resource/'+ item.title + '/' + item.url}}*/}
+                                            {/*source={{uri: 'http://192.168.0.251:8004/resource/'+ item.title + '/' + item.url}}*/}
                                             {/*/>*/}
                                         </View>
                                         <View style={styles.bestCourseBottomItemFont}>

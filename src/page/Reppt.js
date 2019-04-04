@@ -37,7 +37,7 @@ export default class Page1 extends Component<Props> {
     // 请求PPT
     componentDidMount() {
 // alert(height)
-        fetch("http://192.168.0.250:8004/readResource/ppt", {
+        fetch("http://192.168.0.251:8004/readResource/ppt", {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -101,7 +101,7 @@ export default class Page1 extends Component<Props> {
                 >
                     {
                         this.state.pptArray.map((item, index) => {
-                            return <Image source={{uri: 'http://192.168.0.250:8004' + item.img}}
+                            return <Image source={{uri: 'http://192.168.0.251:8004' + item.img}}
                                           key={index}
                                           style={styles.bannerImg} />
                         })

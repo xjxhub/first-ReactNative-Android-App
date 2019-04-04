@@ -8,7 +8,7 @@
  */
 
 import React, {Component} from 'react';
-import {TouchableOpacity, Platform, StyleSheet, Text, View} from 'react-native';
+import {Image, TouchableOpacity, Platform, StyleSheet, Text, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons'
 import {
     Button,
@@ -33,16 +33,19 @@ Props = {};
 export default class MyPage extends Component<Props> {
     constructor(props) {
         super(props);
+        // 登录方式弹框
         this.onClose = () => {
             this.setState({
                 visible: false,
             });
         };
+        // 注册框
         this.onClose1 = () => {
             this.setState({
                 visible1: false,
             });
         };
+        // 登录框
         this.onClose2 = () => {
             this.setState({
                 visible2: false,
@@ -59,7 +62,8 @@ export default class MyPage extends Component<Props> {
             nowState:'YZM',
             placeholderFont:'验证码',
             buttonFont:'发送验证码',
-            methodName:'密码登录'
+            methodName:'密码登录',
+            myPhoneNum:''
         };
     }
 
@@ -124,7 +128,7 @@ export default class MyPage extends Component<Props> {
             md.update(PW);
             PW=md.digest().toHex()
         }
-        fetch("http://192.168.0.250:8004/user/login", {
+        fetch("http://192.168.0.251:8004/user/login", {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -137,8 +141,20 @@ export default class MyPage extends Component<Props> {
             }),
         })
             .then((response) => response.json())
-            .then((res) => {       // 获取到的数据处理
+            .then((res) => {
+            // 获取到的数据处理
+            //     alert(this.state.myPhoneNum)
+                if(res.code === 0){
+                    // 登录成功
+                    this.setState({
+                        visible: false,
+                        visible2: false,
+                        myPhoneNum:res.result.MoNo
+                    });
+                    // alert(res.result.MoNo)
+                }else{
 
+                }
             })
     }
 
@@ -150,14 +166,25 @@ export default class MyPage extends Component<Props> {
         return (
             <View style={styles.container}>
                 <Provider>
-                    <TouchableOpacity style={styles.header} onPress={() => this.setState({ visible: true })}>
-                        <Ionicons name={'account-circle'} size={60} style={{color: '#ccc'}}/>
-                        <View style={styles.login}>
-                            <Text style={styles.loginFont}>登录</Text>
-                            <Text style={styles.loginFont}>/</Text>
-                            <Text style={styles.loginFont} onPress={() => this.setState({ visible1: true })}>注册</Text>
-                        </View>
-                    </TouchableOpacity>
+                    {this.state.myPhoneNum ?
+                        <TouchableOpacity style={styles.header} onPress={() => this.setState({ visible: true })}>
+                            <Image style={{width:60,height:60,borderRadius:60}}
+                                source={require('../img/user.png')}
+                            />
+                            <View style={styles.login}>
+                                <Text style={styles.loginFont}>{this.state.myPhoneNum}</Text>
+                            </View>
+                        </TouchableOpacity> :
+                        <TouchableOpacity style={styles.header} onPress={() => this.setState({ visible: true })}>
+                            <Ionicons name={'account-circle'} size={60} style={{color: '#ccc'}}/>
+                            <View style={styles.login}>
+                                <Text style={styles.loginFont}>登录</Text>
+                                <Text style={styles.loginFont}>/</Text>
+                                <Text style={styles.loginFont} onPress={() => this.setState({ visible1: true })}>注册</Text>
+                            </View>
+                        </TouchableOpacity>
+                    }
+
                     <Modal
                         title="登录体验完整功能"
                         transparent
