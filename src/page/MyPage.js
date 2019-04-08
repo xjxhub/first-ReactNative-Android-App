@@ -19,6 +19,8 @@ import {
     Toast,
     Provider,
 } from '@ant-design/react-native';
+import {storage} from '../storage'
+
 
 const forge = require('node-forge');
 const instructions = Platform.select({
@@ -149,13 +151,30 @@ export default class MyPage extends Component<Props> {
                     this.setState({
                         visible: false,
                         visible2: false,
-                        myPhoneNum:res.result.MoNo
+                        // myPhoneNum:res.result.MoNo
                     });
+                    storage.save('userInfo', res.result)
                     // alert(res.result.MoNo)
+                    storage.load('userInfo', (data) => {
+                        // alert(data.nickname)
+                        this.setState({
+                            myPhoneNum:data.MoNo
+                        });
+                    })
                 }else{
 
                 }
             })
+    }
+
+    componentDidMount() {
+     // 获取用户信息
+        storage.load('userInfo', (data) => {
+            // alert(data.name)
+            this.setState({
+                myPhoneNum:data.MoNo
+            });
+        })
     }
 
         render() {
