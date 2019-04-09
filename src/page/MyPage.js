@@ -53,10 +53,17 @@ export default class MyPage extends Component<Props> {
                 visible2: false,
             });
         };
+        // 注销框
+        this.onCloseCancel = () => {
+            this.setState({
+                visibleCancel: false,
+            });
+        };
         this.state = {
             visible: false,
             visible1: false,
             visible2: false,
+            visibleCancel:false,
             phone: '',
             password: '',
             phoneRegister: '',
@@ -69,6 +76,7 @@ export default class MyPage extends Component<Props> {
         };
     }
 
+    // 切换密码登录或验证码登录
     changeLoginMethod = () =>{
         if(this.state.nowState === 'YZM'){
             this.setState({
@@ -83,6 +91,7 @@ export default class MyPage extends Component<Props> {
 
     }
 
+    // 切换密码登录或验证码登录 ↑
     updateData = () => {
         if(this.state.nowState === 'YZM'){
             this.setState({
@@ -99,6 +108,7 @@ export default class MyPage extends Component<Props> {
         }
     }
 
+    // 发送验证码或找回密码
     sendORfind = () => {
         if(this.state.nowState === 'YZM'){
             this.sendIdentifyingCode()
@@ -107,14 +117,18 @@ export default class MyPage extends Component<Props> {
         }
     }
 
+    // 发送验证码
     sendIdentifyingCode = () => {
         alert('发送验证码')
+
     }
 
+    // 找回密码
     findPassWord = () => {
         alert('找回密码')
     }
 
+    // 登录
     loginRequest = () => {
         // alert('123')
         let md = forge.md.md5.create();
@@ -139,8 +153,9 @@ export default class MyPage extends Component<Props> {
             body: JSON.stringify({
                 phoneNumber: this.state.phone,
                 passWord:PW,
-                identifyingCode:IC
+                identifyingCode:IC,
             }),
+            credentials: 'include'
         })
             .then((response) => response.json())
             .then((res) => {
@@ -167,6 +182,39 @@ export default class MyPage extends Component<Props> {
             })
     }
 
+    // 注销
+    logOut = () => {
+        // alert('11')
+        // fetch("http://192.168.0.251:8004/user/logout", {
+        //     method: 'POST',
+        //     headers: {
+        //         Accept: 'application/json',
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({
+        //         user:111
+        //     }),
+        //     credentials: 'include'
+        // })
+        //     .then((response) => response.json())
+        //     .then((res) => {
+        //         if(res.code === 0){
+        //             storage.remove('userInfo')
+        //             this.setState({
+        //                 visibleCancel: false,
+        //                 myPhoneNum:''
+        //             })
+        //         }else {
+        //
+        //         }
+        //     })
+        storage.remove('userInfo')
+        this.setState({
+            visibleCancel: false,
+            myPhoneNum:''
+        })
+    }
+
     componentDidMount() {
      // 获取用户信息
         storage.load('userInfo', (data) => {
@@ -186,7 +234,7 @@ export default class MyPage extends Component<Props> {
             <View style={styles.container}>
                 <Provider>
                     {this.state.myPhoneNum ?
-                        <TouchableOpacity style={styles.header} onPress={() => this.setState({ visible: true })}>
+                        <TouchableOpacity style={styles.header} onPress={() => this.setState({ visibleCancel: true })}>
                             <Image style={{width:60,height:60,borderRadius:60}}
                                 source={require('../img/user.png')}
                             />
@@ -203,7 +251,24 @@ export default class MyPage extends Component<Props> {
                             </View>
                         </TouchableOpacity>
                     }
-
+                    {/*注销*/}
+                    <Modal
+                        // title="确定要退出吗？"
+                        transparent
+                        onClose={this.onCloseCancel}
+                        maskClosable
+                        visible={this.state.visibleCancel}
+                        closable
+                    >
+                        <View style={{ paddingVertical: 20, flexDirection: 'row'}}>
+                            <Button onPress={() => this.logOut()}
+                                    type="primary"
+                                    style={{marginLeft:'35%'}}>
+                                <Text>注销</Text>
+                            </Button>
+                        </View>
+                    </Modal>
+                    {/*询问登录方式*/}
                     <Modal
                         title="登录体验完整功能"
                         transparent
@@ -223,9 +288,6 @@ export default class MyPage extends Component<Props> {
                                 <Text>微信登录</Text>
                             </Button>
                         </View>
-                        {/*<Button type="primary" onPress={this.onClose}>*/}
-                            {/*close modal*/}
-                        {/*</Button>*/}
                     </Modal>
                     {/*注册框*/}
                     <Modal
@@ -323,7 +385,6 @@ export default class MyPage extends Component<Props> {
                         </View>
                     </Modal>
                 </Provider>
-
             </View>
         );
     }
