@@ -1,4 +1,4 @@
-package com.firstapp;
+package com.ZBT;
 
 import com.facebook.react.ReactActivity;
 import android.content.Intent;
@@ -12,7 +12,7 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "FirstApp";
+        return "ZBT";
     }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
