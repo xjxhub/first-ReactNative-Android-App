@@ -26,7 +26,7 @@ export default class ToComWeb extends Component<Props> {
         const {navigation} = this.props
         return (
             <WebView
-                source={{uri: 'http://www.baidu.com'}}
+                source={{uri: 'http://www.zbtchina.com'}}
             />
         );
     }

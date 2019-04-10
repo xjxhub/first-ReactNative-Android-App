@@ -350,7 +350,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     bestCourseBottomItemImg: {
-        width: '37%',
+        width: '44%',
         height: 80,
         // borderWidth: 1,
         // borderColor: '#000',
@@ -360,7 +360,10 @@ const styles = StyleSheet.create({
     },
     bestCourseBottomItemFont: {
         width: '50%',
-        marginLeft: '4%',
+        // borderWidth: 1,
+        // borderColor: '#000',
+        // borderStyle: 'solid',
+        // marginLeft: '4%',
         marginTop: 7
     },
     bestCourseBottomItemFontTit: {
