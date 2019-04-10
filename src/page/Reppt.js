@@ -24,6 +24,8 @@ export default class Page1 extends Component<Props> {
         const {navigation} = this.props
         this.index = navigation.getParam("index")
         this.reqPath = navigation.getParam("reqPath")
+        this.W = width
+        this.H = height
 
         super(props);
         this.state = {
@@ -145,48 +147,49 @@ export default class Page1 extends Component<Props> {
 
 const styles = StyleSheet.create({
     coat:{
-        width:'160%',
-        height:'100%',
+        width:'158%',
+        height:'54%',
         // borderWidth: 5,
         // borderColor: '#000',
-        // backgroundColor:'#000',
+        backgroundColor:'#ccc',
         borderStyle: 'solid',
         transform:[{translateX:100},{rotateZ:'-270deg'}],
         // position:'absolute',
-        marginLeft:'-35%',
-        // zIndex:2
+        marginLeft:'-47.5%',
+        marginTop:'37%'
+
 
     },
     pptContainer: {
-        height:'100%',
+        width:'100%',
+        height:'150%',
         backgroundColor:'#fff',
         // borderWidth: 1,
-        // borderColor: '#000',
+        // borderColor: '#0f0',
         // borderStyle: 'solid',
 
-        // position: 'absolute',
-        // top: 50,
-        // right: 50
-        // marginLeft:'-15%',
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        marginBottom:'-7%',
     },
     wrpaper: {
-        transform:[{translateX:100},{rotateZ:'-270deg'}],
         width: '100%',
         height:'100%',
 
     },
     bannerImg:{
-        // position: 'absolute',
-        // bottom: 0,
-        // right: 0,
-        width:'100%',
-        height:'64%',
-        marginTop:'30%',
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        width:'105%',
+        height:'100%',
+        // marginTop:'30%',
     },
     paginationStyle: {
         position: 'absolute',
-        top: 220,
-        left: 10
+        bottom: -18,
+        left: 20,
     },
     paginationText: {
         color: '#000',
@@ -195,7 +198,8 @@ const styles = StyleSheet.create({
     contract:{
         color:'#000',
         position: 'absolute',
-        top: 220,
-        right: 10
+        top: 5,
+        right: 10,
+        zIndex:99
     }
 });
