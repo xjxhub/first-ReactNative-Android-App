@@ -60,29 +60,30 @@ export default class MyPage extends Component<Props> {
             });
         };
         this.state = {
+            url: 'http://192.168.0.251:8004',
             visible: false,
             visible1: false,
             visible2: false,
-            visibleCancel:false,
+            visibleCancel: false,
             phone: '',
             password: '',
             phoneRegister: '',
             passwordRegister: '',
-            nowState:'YZM',
-            placeholderFont:'验证码',
-            buttonFont:'发送验证码',
-            methodName:'密码登录',
-            myPhoneNum:''
+            nowState: 'YZM',
+            placeholderFont: '验证码',
+            buttonFont: '发送验证码',
+            methodName: '密码登录',
+            myPhoneNum: ''
         };
     }
 
     // 切换密码登录或验证码登录
-    changeLoginMethod = () =>{
-        if(this.state.nowState === 'YZM'){
+    changeLoginMethod = () => {
+        if (this.state.nowState === 'YZM') {
             this.setState({
                 nowState: 'MM'
             }, this.updateData)
-        } else if(this.state.nowState === 'MM') {
+        } else if (this.state.nowState === 'MM') {
             this.setState({
                 nowState: 'YZM'
             }, this.updateData)
@@ -93,24 +94,24 @@ export default class MyPage extends Component<Props> {
 
     // 切换密码登录或验证码登录 ↑
     updateData = () => {
-        if(this.state.nowState === 'YZM'){
+        if (this.state.nowState === 'YZM') {
             this.setState({
-                placeholderFont:'验证码',
-                buttonFont:'发送验证码',
-                methodName:'密码登录'
+                placeholderFont: '验证码',
+                buttonFont: '发送验证码',
+                methodName: '密码登录'
             })
         } else {
             this.setState({
-                placeholderFont:'密码',
-                buttonFont:'找回密码',
-                methodName:'免密码登录'
+                placeholderFont: '密码',
+                buttonFont: '找回密码',
+                methodName: '免密码登录'
             })
         }
     }
 
     // 发送验证码或找回密码
     sendORfind = () => {
-        if(this.state.nowState === 'YZM'){
+        if (this.state.nowState === 'YZM') {
             this.sendIdentifyingCode()
         } else {
             this.findPassWord()
@@ -132,19 +133,19 @@ export default class MyPage extends Component<Props> {
     loginRequest = () => {
         // alert('123')
         let md = forge.md.md5.create();
-        let PW,IC
-        if(this.state.nowState === 'YZM'){
+        let PW, IC
+        if (this.state.nowState === 'YZM') {
             IC = this.state.password
             PW = ''
             md.update(IC);
-            IC=md.digest().toHex()
+            IC = md.digest().toHex()
         } else {
             IC = ''
             PW = this.state.password
             md.update(PW);
-            PW=md.digest().toHex()
+            PW = md.digest().toHex()
         }
-        fetch("http://192.168.0.251:8004/user/login", {
+        fetch(this.state.url + "/user/login", {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -152,16 +153,16 @@ export default class MyPage extends Component<Props> {
             },
             body: JSON.stringify({
                 phoneNumber: this.state.phone,
-                passWord:PW,
-                identifyingCode:IC,
+                passWord: PW,
+                identifyingCode: IC,
             }),
             credentials: 'include'
         })
             .then((response) => response.json())
             .then((res) => {
-            // 获取到的数据处理
-            //     alert(this.state.myPhoneNum)
-                if(res.code === 0){
+                // 获取到的数据处理
+                //     alert(this.state.myPhoneNum)
+                if (res.code === 0) {
                     // 登录成功
                     this.setState({
                         visible: false,
@@ -173,10 +174,10 @@ export default class MyPage extends Component<Props> {
                     storage.load('userInfo', (data) => {
                         // alert(data.nickname)
                         this.setState({
-                            myPhoneNum:data.MoNo
+                            myPhoneNum: data.MoNo
                         });
                     })
-                }else{
+                } else {
 
                 }
             })
@@ -185,7 +186,7 @@ export default class MyPage extends Component<Props> {
     // 注销
     logOut = () => {
         // alert('11')
-        // fetch("http://192.168.0.251:8004/user/logout", {
+        // fetch(this.state.url + "/user/logout", {
         //     method: 'POST',
         //     headers: {
         //         Accept: 'application/json',
@@ -211,43 +212,43 @@ export default class MyPage extends Component<Props> {
         storage.remove('userInfo')
         this.setState({
             visibleCancel: false,
-            myPhoneNum:''
+            myPhoneNum: ''
         })
     }
 
     componentDidMount() {
-     // 获取用户信息
+        // 获取用户信息
         storage.load('userInfo', (data) => {
             // alert(data.name)
             this.setState({
-                myPhoneNum:data.MoNo
+                myPhoneNum: data.MoNo
             });
         })
     }
 
-        render() {
+    render() {
         const footerButtons = [
-            { text: 'Cancel', onPress: () => console.log('cancel') },
-            { text: 'Ok', onPress: () => console.log('ok') },
+            {text: 'Cancel', onPress: () => console.log('cancel')},
+            {text: 'Ok', onPress: () => console.log('ok')},
         ];
         return (
             <View style={styles.container}>
                 <Provider>
                     {this.state.myPhoneNum ?
-                        <TouchableOpacity style={styles.header} onPress={() => this.setState({ visibleCancel: true })}>
-                            <Image style={{width:60,height:60,borderRadius:60}}
-                                source={require('../img/user.png')}
+                        <TouchableOpacity style={styles.header} onPress={() => this.setState({visibleCancel: true})}>
+                            <Image style={{width: 60, height: 60, borderRadius: 60}}
+                                   source={require('../img/user.png')}
                             />
                             <View style={styles.login}>
                                 <Text style={styles.loginFont}>{this.state.myPhoneNum}</Text>
                             </View>
                         </TouchableOpacity> :
-                        <TouchableOpacity style={styles.header} onPress={() => this.setState({ visible: true })}>
+                        <TouchableOpacity style={styles.header} onPress={() => this.setState({visible: true})}>
                             <Ionicons name={'account-circle'} size={60} style={{color: '#ccc'}}/>
                             <View style={styles.login}>
                                 <Text style={styles.loginFont}>登录</Text>
                                 <Text style={styles.loginFont}>/</Text>
-                                <Text style={styles.loginFont} onPress={() => this.setState({ visible1: true })}>注册</Text>
+                                <Text style={styles.loginFont} onPress={() => this.setState({visible1: true})}>注册</Text>
                             </View>
                         </TouchableOpacity>
                     }
@@ -260,10 +261,10 @@ export default class MyPage extends Component<Props> {
                         visible={this.state.visibleCancel}
                         closable
                     >
-                        <View style={{ paddingVertical: 20, flexDirection: 'row'}}>
+                        <View style={{paddingVertical: 20, flexDirection: 'row'}}>
                             <Button onPress={() => this.logOut()}
                                     type="primary"
-                                    style={{marginLeft:'35%'}}>
+                                    style={{marginLeft: '35%'}}>
                                 <Text>注销</Text>
                             </Button>
                         </View>
@@ -278,8 +279,9 @@ export default class MyPage extends Component<Props> {
                         closable
                         // footer={footerButtons}
                     >
-                        <View style={{ paddingVertical: 20 }}>
-                            <Button onPress={() => this.setState({ visible2: true })} type="primary" style={{marginBottom:15}}>
+                        <View style={{paddingVertical: 20}}>
+                            <Button onPress={() => this.setState({visible2: true})} type="primary"
+                                    style={{marginBottom: 15}}>
                                 <Ionicons name={'cellphone-iphone'} size={20} style={{color: '#fff'}}/>
                                 <Text>手机登录</Text>
                             </Button>
@@ -297,8 +299,8 @@ export default class MyPage extends Component<Props> {
                         onClose={this.onClose1}
                         maskClosable
                     >
-                        <Ionicons onPress={this.onClose1} name={'close'} size={30} style={{width:'8%'}}/>
-                        <View style={{ paddingVertical: 20, paddingHorizontal: 20 }}>
+                        <Ionicons onPress={this.onClose1} name={'close'} size={30} style={{width: '8%'}}/>
+                        <View style={{paddingVertical: 20, paddingHorizontal: 20}}>
                             <InputItem
                                 clear
                                 type="phone"
@@ -312,7 +314,7 @@ export default class MyPage extends Component<Props> {
                             >
                                 {/*手机号*/}
                             </InputItem>
-                            <WhiteSpace size="xl" />
+                            <WhiteSpace size="xl"/>
                             <InputItem
                                 clear
                                 type="password"
@@ -326,14 +328,14 @@ export default class MyPage extends Component<Props> {
                             >
                                 {/*密码*/}
                             </InputItem>
-                            <Button style={{width:'30%',marginLeft:'70%'}}>
-                                <Text style={{fontSize:14}}>发送验证码</Text>
+                            <Button style={{width: '30%', marginLeft: '70%'}}>
+                                <Text style={{fontSize: 14}}>发送验证码</Text>
                             </Button>
-                            <WhiteSpace size="xl" />
+                            <WhiteSpace size="xl"/>
                             <Button type="primary">
                                 <Text>确认</Text>
                             </Button>
-                            <WhiteSpace size="xl" />
+                            <WhiteSpace size="xl"/>
                         </View>
                     </Modal>
                     {/*登录框*/}
@@ -344,8 +346,8 @@ export default class MyPage extends Component<Props> {
                         onClose={this.onClose2}
                         maskClosable
                     >
-                        <Ionicons onPress={this.onClose2} name={'close'} size={30} style={{width:'8%'}}/>
-                        <View style={{ paddingVertical: 20, paddingHorizontal: 20 }}>
+                        <Ionicons onPress={this.onClose2} name={'close'} size={30} style={{width: '8%'}}/>
+                        <View style={{paddingVertical: 20, paddingHorizontal: 20}}>
                             <InputItem
                                 clear
                                 type="phone"
@@ -359,29 +361,30 @@ export default class MyPage extends Component<Props> {
                             >
                                 {/*手机号*/}
                             </InputItem>
-                            <WhiteSpace size="xl" />
-                                <InputItem
-                                    clear
-                                    type="password"
-                                    value={this.state.password}
-                                    onChange={value => {
-                                        this.setState({
-                                            password: value,
-                                        });
-                                    }}
-                                    placeholder={this.state.placeholderFont}
-                                >
-                                    {/*密码*/}
-                                </InputItem>
-                                <Button onPress={this.sendORfind} style={{width:'30%',marginLeft:'70%'}}>
-                                    <Text style={{fontSize:14}}>{this.state.buttonFont}</Text>
-                                </Button>
-                            <WhiteSpace size="xl" />
+                            <WhiteSpace size="xl"/>
+                            <InputItem
+                                clear
+                                type="password"
+                                value={this.state.password}
+                                onChange={value => {
+                                    this.setState({
+                                        password: value,
+                                    });
+                                }}
+                                placeholder={this.state.placeholderFont}
+                            >
+                                {/*密码*/}
+                            </InputItem>
+                            <Button onPress={this.sendORfind} style={{width: '30%', marginLeft: '70%'}}>
+                                <Text style={{fontSize: 14}}>{this.state.buttonFont}</Text>
+                            </Button>
+                            <WhiteSpace size="xl"/>
                             <Button type="primary" onPress={this.loginRequest}>
                                 <Text>确认</Text>
                             </Button>
-                            <WhiteSpace size="xl" />
-                            <Text onPress={this.changeLoginMethod} style={{ textAlign: 'center' }}>{this.state.methodName}</Text>
+                            <WhiteSpace size="xl"/>
+                            <Text onPress={this.changeLoginMethod}
+                                  style={{textAlign: 'center'}}>{this.state.methodName}</Text>
                         </View>
                     </Modal>
                 </Provider>
@@ -398,18 +401,18 @@ const styles = StyleSheet.create({
     },
     header: {
         padding: 15,
-        display:'flex',
+        display: 'flex',
         flexDirection: 'row'
     },
-    login:{
+    login: {
         flexDirection: 'row',
-        marginTop:15,
-        marginLeft:10
+        marginTop: 15,
+        marginLeft: 10
     },
-    loginFont:{
-        fontSize:18,
-        fontWeight:'bold',
-        color:'#000',
-        margin:2
+    loginFont: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#000',
+        margin: 2
     }
 });

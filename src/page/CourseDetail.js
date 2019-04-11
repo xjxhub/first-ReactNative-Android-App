@@ -50,6 +50,7 @@ export default class CourseDetail extends Component<Props> {
         this.index = navigation.getParam("index")
         this.courseItem = navigation.getParam("item")
         this.currPPTIndex = navigation.getParam("currIndex")
+        this.url='http://192.168.0.251:8004'
 
         super(props);
         this.state = {
@@ -61,7 +62,7 @@ export default class CourseDetail extends Component<Props> {
             swiperShow: false,
             videoUrl: "http://192.168.0.251:8010/resource/" + this.courseItem.title + '/' + this.courseItem.video,
             // videoUrl: "http://124.129.157.208:8810/SD/2017qingdao/xiaoxueEnglish/grade3/b/1.mp4",
-            videoCover: "http://192.168.0.251:8004/resource/" + this.courseItem.title + '/' + this.courseItem.url,
+            videoCover: this.url + "/resource/" + this.courseItem.title + '/' + this.courseItem.url,
             fetchDataGet: 55,
             fetchDataPost: 66,
             text: '',
@@ -107,7 +108,7 @@ export default class CourseDetail extends Component<Props> {
                 >
                     {
                         this.state.pptArray.map((item, index) => {
-                            return <Image source={{uri: 'http://192.168.0.251:8004' + item.img}}
+                            return <Image source={{uri: this.url + item.img}}
                                           key={index}
                                           style={styles.bannerImg}/>
                         })
@@ -161,7 +162,7 @@ export default class CourseDetail extends Component<Props> {
             this.refs.webview.postMessage(this.state.videoUrl);
         }, 1000);
 
-        fetch("http://192.168.0.251:8004/readResource/ppt", {
+        fetch(this.url + "/readResource/ppt", {
             method: 'POST',
             headers: {
                 Accept: 'application/json',

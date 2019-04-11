@@ -29,6 +29,7 @@ export default class Page1 extends Component<Props> {
 
         super(props);
         this.state = {
+            url:'http://192.168.0.251:8004',
             pptArray:[],
             swiperShow: false,
             currIndex:0
@@ -43,7 +44,7 @@ export default class Page1 extends Component<Props> {
     componentDidMount() {
         Orientation.lockToLandscape();
 // alert(height)
-        fetch("http://192.168.0.251:8004/readResource/ppt", {
+        fetch(this.state.url + "/readResource/ppt", {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -107,7 +108,7 @@ export default class Page1 extends Component<Props> {
                 >
                     {
                         this.state.pptArray.map((item, index) => {
-                            return <Image source={{uri: 'http://192.168.0.251:8004' + item.img}}
+                            return <Image source={{uri: this.state.url + item.img}}
                                           key={index}
                                           style={styles.bannerImg} />
                         })

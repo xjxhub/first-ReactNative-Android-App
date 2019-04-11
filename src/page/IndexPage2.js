@@ -25,6 +25,7 @@ export default class Page2 extends Component<Props> {
     constructor(props) {
         super(props)
         this.state = {
+            url: 'http://192.168.0.251:8004',
             fetchDataPost: '',
             bestCourseData: [],
             bestCourseBottomData: [],
@@ -46,7 +47,7 @@ export default class Page2 extends Component<Props> {
         //
         //    });
 
-        return fetch('http://192.168.0.251:8004/readResource', {
+        return fetch(this.state.url + '/readResource', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -133,7 +134,8 @@ export default class Page2 extends Component<Props> {
                             <Ionicons style={styles.bestTestIcon} name={'tag-text-outline'} size={16}/>
                             精品课程
                         </Text>
-                        <View className="bestCourseTop" style={{flex: 1, flexDirection: 'row', marginBottom: 30, paddingBottom:10}}>
+                        <View className="bestCourseTop"
+                              style={{flex: 1, flexDirection: 'row', marginBottom: 30, paddingBottom: 10}}>
                             {/*<View style={styles.bestCourseTopItem}>*/}
                             {/*<Text>111</Text>*/}
                             {/*</View>*/}
@@ -159,7 +161,7 @@ export default class Page2 extends Component<Props> {
 
                                         {/*<Image*/}
                                         {/*style={{width: '100%', height: 100}}*/}
-                                        {/*source={{uri: 'http://192.168.0.251:8004/resource/'+ item.title + '/' + item.url}}*/}
+                                        {/*source={{uri: this.state.url + '/resource/'+ item.title + '/' + item.url}}*/}
                                         {/*/>*/}
                                         <Text style={styles.bestCourseTopItemTitle}>{item.title}</Text>
                                     </TouchableOpacity>
@@ -211,7 +213,7 @@ export default class Page2 extends Component<Props> {
                                             }
                                             {/*<Image*/}
                                             {/*style={{width: 150, height: 80}}*/}
-                                            {/*source={{uri: 'http://192.168.0.251:8004/resource/'+ item.title + '/' + item.url}}*/}
+                                            {/*source={{uri: this.state.url + '/resource/'+ item.title + '/' + item.url}}*/}
                                             {/*/>*/}
                                         </View>
                                         <View style={styles.bestCourseBottomItemFont}>
@@ -229,7 +231,8 @@ export default class Page2 extends Component<Props> {
                             <Ionicons style={styles.bestTestIcon} name={'sword-cross'} size={16}/>
                             实战推荐
                         </Text>
-                        <View className="suggestCourseData" style={{flex: 1, flexDirection: 'row', marginBottom: 30, paddingBottom:10}}>
+                        <View className="suggestCourseData"
+                              style={{flex: 1, flexDirection: 'row', marginBottom: 30, paddingBottom: 10}}>
                             {
                                 this.state.suggestCourseData.map((item, index) => {
                                     return <TouchableOpacity key={index}
@@ -248,7 +251,7 @@ export default class Page2 extends Component<Props> {
                                         }
                                         {/*<Image*/}
                                         {/*style={{width: '100%', height: 100}}*/}
-                                        {/*source={{uri: 'http://192.168.0.251:8004/resource/'+ item.title + '/' + item.url}}*/}
+                                        {/*source={{uri: this.state.url+'/resource/'+ item.title + '/' + item.url}}*/}
                                         {/*/>*/}
                                         <Text style={styles.bestCourseTopItemTitle}>{item.title}</Text>
                                     </TouchableOpacity>
@@ -285,7 +288,7 @@ export default class Page2 extends Component<Props> {
                                             }
                                             {/*<Image*/}
                                             {/*style={{width: 150, height: 80}}*/}
-                                            {/*source={{uri: 'http://192.168.0.251:8004/resource/'+ item.title + '/' + item.url}}*/}
+                                            {/*source={{uri: this.state.url+'/resource/'+ item.title + '/' + item.url}}*/}
                                             {/*/>*/}
                                         </View>
                                         <View style={styles.bestCourseBottomItemFont}>
@@ -372,7 +375,7 @@ const styles = StyleSheet.create({
     },
     bestCourseBottomItemFontDes: {
         width: '100%',
-        overflow:'hidden'
+        overflow: 'hidden'
     },
     suggestCourse: {
         backgroundColor: 'rgb(244,244,244)',
