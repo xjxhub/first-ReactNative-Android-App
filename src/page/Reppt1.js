@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     },
     paginationStyle: {
         position: 'absolute',
-        top: 220,
+        top: 10,
         left: 10
     },
     paginationText: {
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     contract:{
         color:'#000',
         position: 'absolute',
-        top: 220,
+        top: 10,
         right: 10
     }
 });

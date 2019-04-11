@@ -229,7 +229,7 @@ export default class Page2 extends Component<Props> {
                             <Ionicons style={styles.bestTestIcon} name={'sword-cross'} size={16}/>
                             实战推荐
                         </Text>
-                        <View className="suggestCourseData" style={{flex: 1, flexDirection: 'row', marginBottom: 30}}>
+                        <View className="suggestCourseData" style={{flex: 1, flexDirection: 'row', marginBottom: 30, paddingBottom:10}}>
                             {
                                 this.state.suggestCourseData.map((item, index) => {
                                     return <TouchableOpacity key={index}

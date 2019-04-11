@@ -152,7 +152,7 @@ export default class Page1 extends Component<Props> {
 const styles = StyleSheet.create({
     coat:{
         width:'100%',
-        height:'100%',
+        height:'97%',
         // borderWidth: 5,
         // borderColor: '#000',
         backgroundColor:'#ccc',
@@ -160,7 +160,6 @@ const styles = StyleSheet.create({
         // transform:[{translateX:100},{rotateZ:'-270deg'}],
         // marginLeft:'-47.5%',
         // marginTop:'37%'
-
 
     },
     pptContainer: {
@@ -191,7 +190,7 @@ const styles = StyleSheet.create({
     },
     paginationStyle: {
         position: 'absolute',
-        bottom: -18,
+        top: 5,
         left: 20,
     },
     paginationText: {
