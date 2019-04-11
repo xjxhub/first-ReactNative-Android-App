@@ -36,8 +36,12 @@ export default class Page1 extends Component<Props> {
     }
 
 
+    componentWillUnmount() {
+        Orientation.unlockAllOrientations();
+    };
     // 请求PPT
     componentDidMount() {
+        Orientation.lockToLandscape();
 // alert(height)
         fetch("http://192.168.0.251:8004/readResource/ppt", {
             method: 'POST',
@@ -147,22 +151,21 @@ export default class Page1 extends Component<Props> {
 
 const styles = StyleSheet.create({
     coat:{
-        width:'158%',
-        height:'54%',
+        width:'100%',
+        height:'100%',
         // borderWidth: 5,
         // borderColor: '#000',
         backgroundColor:'#ccc',
         borderStyle: 'solid',
-        transform:[{translateX:100},{rotateZ:'-270deg'}],
-        // position:'absolute',
-        marginLeft:'-47.5%',
-        marginTop:'37%'
+        // transform:[{translateX:100},{rotateZ:'-270deg'}],
+        // marginLeft:'-47.5%',
+        // marginTop:'37%'
 
 
     },
     pptContainer: {
         width:'100%',
-        height:'150%',
+        height:'100%',
         backgroundColor:'#fff',
         // borderWidth: 1,
         // borderColor: '#0f0',
@@ -171,7 +174,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         right: 0,
-        marginBottom:'-7%',
+        // marginBottom:'-7%',
     },
     wrpaper: {
         width: '100%',
@@ -182,7 +185,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         right: 0,
-        width:'105%',
+        width:'100%',
         height:'100%',
         // marginTop:'30%',
     },
