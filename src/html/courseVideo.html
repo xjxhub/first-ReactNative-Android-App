@@ -2,9 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DPlayer – H5视频播放器</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/DPlayer.min.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css">
+    <style>
+
+    </style>
 </head>
 <body>
-1237777
+<div class="container">
+
+    <div id="dplayer"></div>
+
+</div>
+
+<script src="js/DPlayer.min.js"></script>
+<script src="js/hls.min.js"></script>
+<script>
+    window.document.addEventListener('message', function (textValue) {
+        var data = textValue.data;
+        // 视频播放
+
+        const dp = new DPlayer({
+            container: document.getElementById('dplayer'),
+            screenshot: false,
+            video: {
+                url: data,
+//                pic: 'http://static.smartisanos.cn/pr/img/video/video_03_cc87ce5bdb.jpg',
+//                thumbnails: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara_thumbnails.jpg',
+            }
+        });
+        var video = document.getElementById('dplayer');
+        if(Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource(data);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED,function() {
+                // video.play();
+            });
+        }
+
+    })
+
+</script>
 </body>
 </html>
