@@ -60,7 +60,7 @@ export default class MyPage extends Component<Props> {
             });
         };
         this.state = {
-            url: 'http://192.168.0.251:8004',
+            url: 'http://114.55.0.239:8004',
             visible: false,
             visible1: false,
             visible2: false,
@@ -328,8 +328,8 @@ export default class MyPage extends Component<Props> {
                             >
                                 {/*密码*/}
                             </InputItem>
-                            <Button style={{width: '30%', marginLeft: '70%'}}>
-                                <Text style={{fontSize: 14}}>发送验证码</Text>
+                            <Button style={{width: '35%', marginLeft: '70%'}}>
+                                <Text style={{fontSize: 12}}>发送验证码</Text>
                             </Button>
                             <WhiteSpace size="xl"/>
                             <Button type="primary">

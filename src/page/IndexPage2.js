@@ -25,7 +25,7 @@ export default class Page2 extends Component<Props> {
     constructor(props) {
         super(props)
         this.state = {
-            url: 'http://192.168.0.251:8004',
+            url: 'http://114.55.0.239:8004',
             fetchDataPost: '',
             bestCourseData: [],
             bestCourseBottomData: [],

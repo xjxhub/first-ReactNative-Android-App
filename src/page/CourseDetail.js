@@ -30,7 +30,7 @@ import StarRating from 'react-native-star-rating';
 // import { WebView } from "react-native-webview";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Orientation from 'react-native-orientation-locker';
-
+import {storage} from '../storage'
 
 type
 Props = {};
@@ -47,20 +47,25 @@ export default class CourseDetail extends Component<Props> {
     constructor(props) {
         super(props);
         const {navigation} = this.props
+        // 从indexPage2传来的值
         this.index = navigation.getParam("index")
         this.courseItem = navigation.getParam("item")
+        // 从reppt传来的值失败
         this.currPPTIndex = navigation.getParam("currIndex")
-        this.url='http://192.168.0.251:8004'
+        // 单独提出的URL
+        this.url = 'http://114.55.0.239:8004'
 
         super(props);
         this.state = {
+            user: '',
+            time: '',
             currScreenState: '',
             currCourseItemPPT: this.courseItem.ppt,
             currpptIndex: 0,
             allpptPage: 0,
             pptArray: [],
             swiperShow: false,
-            videoUrl: "http://192.168.0.251:8010/resource/" + this.courseItem.title + '/' + this.courseItem.video,
+            videoUrl: "http://114.55.0.239:8004/resource/" + this.courseItem.title + '/' + this.courseItem.video,
             // videoUrl: "http://124.129.157.208:8810/SD/2017qingdao/xiaoxueEnglish/grade3/b/1.mp4",
             videoCover: this.url + "/resource/" + this.courseItem.title + '/' + this.courseItem.url,
             fetchDataGet: 55,
@@ -69,17 +74,20 @@ export default class CourseDetail extends Component<Props> {
             starCount: 0,
             starCourse: 0,
             starTeacher: 0,
-            allCommentData: [{
-                name: 'xjx',
-                starLevel: 4,
-                time: '123',
-                content: 'aaa'
-            }, {
-                name: 'www',
-                starLevel: 3,
-                time: '546',
-                content: 'ff'
-            }],
+            title: [this.courseItem.title],
+            appraiseMsg: '',
+            // allCommentData: [{
+            //     name: 'xjx',
+            //     starLevel: 4,
+            //     time: '123',
+            //     content: 'aaa'
+            // }, {
+            //     name: 'www',
+            //     starLevel: 3,
+            //     time: '546',
+            //     content: 'ff'
+            // }],
+            allCommentData: [],
             showReply: false,
             replyText: '',
             clickReplyIndex: ''
@@ -157,11 +165,26 @@ export default class CourseDetail extends Component<Props> {
 
     componentDidMount() {
 
-
+        // 向html传视频链接
         setTimeout(() => {
             this.refs.webview.postMessage(this.state.videoUrl);
         }, 1000);
 
+        // 获取当前用户
+        storage.load('userInfo', (data) => {
+            // alert(data.name)
+            this.setState({
+                user: data.MoNo
+            });
+        })
+
+        // 获取当前时间
+        this.getCurrTime()
+
+        // 进入页面获取评论数据
+        this.getCommentData()
+
+        // 获取ppt请求
         fetch(this.url + "/readResource/ppt", {
             method: 'POST',
             headers: {
@@ -178,12 +201,58 @@ export default class CourseDetail extends Component<Props> {
                     pptArray: res.result,
                 });
             })
+
+        // PPT
         this.swiperFunction()
         // clearTimeout(Timer)
     }
 
+    // 获取当前时间
+    getCurrTime = () => {
+        let currTime = ''
+        let myDate = new Date();
+        // let month = myDate.getMonth()+1
+        // currTime = myDate.getFullYear();    //获取完整的年份(4位,1970-????)
+        // currTime = currTime+'/'+ month;       //获取当前月份(0-11,0代表1月)
+        // currTime = currTime+'/'+myDate.getDate();        //获取当前日(1-31)
+        currTime = currTime + myDate.toLocaleDateString() + '  ' + myDate.toLocaleTimeString()
+        // alert(currTime)
+        this.setState({
+            time: currTime,
+        });
+    }
+
+    // 进入页面获取评论数据&&提交成功后重新请求&&回复成功后重新请求
+    getCommentData = () => {
+        fetch(this.url + "/users/getComment", {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                title: this.state.title,
+            }),
+            credentials: 'include'
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                res.result.appraiseMsg.map((item, index) => {
+                    let myName = ''
+                    let str = item.name
+                    myName = str.slice(0, 3) + '****' + str.slice(6, 10)
+                    // alert(myName)
+                    item.name = myName
+                })
+
+                this.setState({
+                    allCommentData: res.result.appraiseMsg
+                });
+            })
+    }
+
     // PPT
-    swiperFunction() {
+    swiperFunction = () => {
         setTimeout(() => {
             this.setState({
                 swiperShow: true,
@@ -191,9 +260,12 @@ export default class CourseDetail extends Component<Props> {
         }, 1)
     }
 
-    // 切换tab的方法，但是很神奇index没有弹出却解决了关键问题往html传值，我也不知道为嘛虽然这不是我的本意
-    tableChanged(index) {
-        alert(index)
+    // 切换tab的方法
+    tableChanged = (index) => {
+        // let test = index
+        // for(i in test){
+        //     alert(test[i])
+        // }
     }
 
     // 综合评价
@@ -219,17 +291,49 @@ export default class CourseDetail extends Component<Props> {
 
     // 点击提交存数据
     submitComment = () => {
-        // alert( this.state.text )
         this.setState({
-            allCommentData: [{name: 'xjx', time: '123', content: 'ddd', starLevel: 4}]
-        });
+            appraiseMsg: {
+                name: this.state.user,
+                time: this.state.time,
+                content: this.state.text,
+                starLevel: this.state.starCount,
+                starCourse: this.state.starCourse,
+                starTeacher: this.state.starTeacher
+            }
+        }, this.updateData);
     }
 
-    // 获取数据&&提交成功后重新请求&&回复成功后重新请求
-    changeCommentData = () => {
-        this.setState({
-            allCommentData: [{name: 'xjx', time: '123', content: 'ddd', starLevel: 4}]
-        });
+    // 存评论数据
+    updateData = () => {
+        fetch(this.url + "/users/updateComment", {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                title: this.state.title,
+                appraiseMsg: this.state.appraiseMsg,
+            }),
+            credentials: 'include'
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                // alert( res.code )
+                if (res.code === 0) {
+                    alert('update Comment success')
+                    this.setState({
+                        appraiseMsg: {
+                            content: '',
+                            starLevel: 0,
+                            starCourse: 0,
+                            starTeacher: 0
+                        }
+                    }, this.getCommentData())
+                } else {
+                    alert('update Comment failed')
+                }
+            })
     }
 
     // 点击回复
@@ -285,7 +389,7 @@ export default class CourseDetail extends Component<Props> {
                       renderUnderline={() => null}
                       tabBarActiveTextColor={'#7a1213'}
                       style={{topTabBarSplitLine: {borderBottomWidth: 0}, color: "#000"}}
-                      onChange={(index) => this.tableChanged}>
+                      onChange={(index) => this.tableChanged(index)}>
                     {/*简介*/}
                     <View style={styles.style}>
                         <Text>{this.courseItem.describe}</Text>
@@ -293,7 +397,7 @@ export default class CourseDetail extends Component<Props> {
 
                     {/*微课*/}
                     <WebView ref="webview"
-                             source={(Platform.OS == 'ios') ? require('../html/courseVideo.html') : {uri: 'file:///android_asset/page/courseVideo.html'}}>
+                             source={(Platform.OS === 'ios') ? require('../html/courseVideo.html') : {uri: 'file:///android_asset/page/courseVideo.html'}}>
                     </WebView>
                     {/*<WebView ref="webview"*/}
                     {/*source={(Platform.OS == 'ios') ? require('../html/courseVideo.html') : { uri: 'https://www.baidu.com/' }}>*/}
@@ -302,14 +406,20 @@ export default class CourseDetail extends Component<Props> {
                     {/*课件*/}
                     <View style={styles.pptContainer}>
                         {this.renderBanner()}
-                        <View style={{alignItems:'center', flexDirection: 'row', color: '#000', marginLeft: 5, marginTop: 5}}>
+                        <View style={{
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            color: '#000',
+                            marginLeft: 5,
+                            marginTop: 5
+                        }}>
                             <Text>当前第{this.state.currpptIndex + 1}/{this.state.pptArray.length}页</Text>
-                            <View style={{marginLeft:"62%"}}>
+                            <View style={{marginLeft: "62%"}}>
                                 <Ionicons onPress={this.clickppt1}
                                           name={'ios-expand'}
                                           size={26}/>
                             </View>
-                            <View style={{marginLeft:"2%"}}>
+                            <View style={{marginLeft: "2%"}}>
                                 <Ionicons onPress={this.clickppt}
                                           name={'md-expand'}
                                           size={26}/>
@@ -345,35 +455,35 @@ export default class CourseDetail extends Component<Props> {
                                                 <View style={styles.commentItemTime}>
                                                     <Text>{item.time}</Text>
                                                 </View>
-                                                <Button onPress={() => this.replySubmitComment(index)}
-                                                        style={{width: 50, marginBottom: 5}} type="warning"
-                                                        size="middle">回复</Button>
-                                                {this.state.showReply && this.state.clickReplyIndex === index ?
-                                                    <View>
-                                                        <TextInput
-                                                            style={{
-                                                                height: 80,
-                                                                width: '96%',
-                                                                marginBottom: 10,
-                                                                backgroundColor: '#ededed'
-                                                            }}
-                                                            onChangeText={(text) => this.setState({text})}
-                                                            value={this.state.replyText}
-                                                        />
-                                                        <View style={{flexDirection: 'row'}}>
-                                                            <Button onPress={this.replySure} style={{
-                                                                width: 50,
-                                                                marginTop: 5,
-                                                                marginRight: 10,
-                                                                marginBottom: 10
-                                                            }} type="primary" size="middle">确定</Button>
-                                                            <Button onPress={() => this.replyCencel(index)}
-                                                                    style={{width: 50, marginTop: 5, marginBottom: 10}}
-                                                                    size="middle">取消</Button>
-                                                        </View>
-                                                    </View> : <Text> </Text>
-
-                                                }
+                                                {/*回复功能*/}
+                                                {/*<Button onPress={() => this.replySubmitComment(index)}*/}
+                                                        {/*style={{width: 50, marginBottom: 5}} type="warning"*/}
+                                                        {/*size="middle">回复</Button>*/}
+                                                {/*{this.state.showReply && this.state.clickReplyIndex === index ?*/}
+                                                    {/*<View>*/}
+                                                        {/*<TextInput*/}
+                                                            {/*style={{*/}
+                                                                {/*height: 80,*/}
+                                                                {/*width: '96%',*/}
+                                                                {/*marginBottom: 10,*/}
+                                                                {/*backgroundColor: '#ededed'*/}
+                                                            {/*}}*/}
+                                                            {/*onChangeText={(text) => this.setState({text})}*/}
+                                                            {/*value={this.state.replyText}*/}
+                                                        {/*/>*/}
+                                                        {/*<View style={{flexDirection: 'row'}}>*/}
+                                                            {/*<Button onPress={this.replySure} style={{*/}
+                                                                {/*width: 50,*/}
+                                                                {/*marginTop: 5,*/}
+                                                                {/*marginRight: 10,*/}
+                                                                {/*marginBottom: 10*/}
+                                                            {/*}} type="primary" size="middle">确定</Button>*/}
+                                                            {/*<Button onPress={() => this.replyCencel(index)}*/}
+                                                                    {/*style={{width: 50, marginTop: 5, marginBottom: 10}}*/}
+                                                                    {/*size="middle">取消</Button>*/}
+                                                        {/*</View>*/}
+                                                    {/*</View> : <Text> </Text>*/}
+                                                {/*}*/}
                                             </View>
 
                                         })
