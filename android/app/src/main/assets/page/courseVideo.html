@@ -22,27 +22,40 @@
 <script src="../js/DPlayer.min.js"></script>
 <script src="../js/hls.min.js"></script>
 <script>
+    let dp
+    let time = 0
     window.document.addEventListener('message', function (textValue) {
-        var data = textValue.data;
-        // 视频播放
 
-        const dp = new DPlayer({
-            container: document.getElementById('dplayer'),
-            screenshot: false,
-            video: {
-                url: data,
-//                pic: 'http://static.smartisanos.cn/pr/img/video/video_03_cc87ce5bdb.jpg',
+        const DATA = textValue.data.split(",");
+        let data = DATA[0]
+        if(time === 0){
+            // 视频播放
+             dp = new DPlayer({
+                container: document.getElementById('dplayer'),
+                screenshot: false,
+                video: {
+                    url: data,
+                    pic: '../img/pic.png',
 //                thumbnails: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara_thumbnails.jpg',
-            }
-        });
-        var video = document.getElementById('dplayer');
-        if(Hls.isSupported()) {
-            var hls = new Hls();
-            hls.loadSource(data);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED,function() {
-                // video.play();
+                }
             });
+            let video = document.getElementById('dplayer');
+            if(Hls.isSupported()) {
+                let hls = new Hls();
+                hls.loadSource(data);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED,function() {
+                    // video.play();
+                });
+            }
+        } else {
+
+        }
+        time += 1
+        if(DATA[1] === 'play'){
+
+        } else {
+            dp.pause()
         }
 
     })

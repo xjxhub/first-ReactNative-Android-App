@@ -167,7 +167,9 @@ export default class CourseDetail extends Component<Props> {
 
         // 向html传视频链接
         setTimeout(() => {
-            this.refs.webview.postMessage(this.state.videoUrl);
+            let vurl = this.state.videoUrl
+            let state = 'play'
+            this.refs.webview.postMessage([vurl,state]);
         }, 1000);
 
         // 获取当前用户
@@ -267,8 +269,9 @@ export default class CourseDetail extends Component<Props> {
         let test = index
         for(i in test){
             if(test[i] !== '微课'){
-
-            }
+                let vurl = this.state.videoUrl
+                let state = 'stop'
+                this.refs.webview.postMessage([vurl,state]);            }
         }
     }
 
