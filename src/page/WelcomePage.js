@@ -18,7 +18,7 @@ export default class Page1 extends Component<Props> {
         this.timer = setTimeout(() => {
             const {navigation} = this.props
             navigation.navigate("Bottom")
-        }, 2000)
+        }, 3000)
     }
 
     componentWillUnmount() {
@@ -31,7 +31,7 @@ export default class Page1 extends Component<Props> {
             <LinearGradient
                 colors={['rgb(149,82,84)', 'rgb(124,38,40)', 'rgb(122,18,19)']}
                 style={styles.container}>
-                <Text style={styles.welcome}>欢迎进入中邦APP</Text>
+                <Text style={styles.welcome}>欢迎进入中邦智慧教育</Text>
             </LinearGradient>
         );
     }

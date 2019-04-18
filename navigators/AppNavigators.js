@@ -6,8 +6,8 @@ import HomePage from '../src/page/HomePage'
 import Reppt1 from '../src/page/Reppt1'
 import IndexPage2 from '../src/page/IndexPage2'
 import Reppt from '../src/page/Reppt'
-import Page4 from '../src/page/Page4'
-import Page5 from '../src/page/Page5'
+import CompanyIntroduce from '../src/page/CompanyIntroduce'
+import ProductIntroduce from '../src/page/ProductIntroduce'
 import CourseDetail from '../src/page/CourseDetail'
 import Index from '../src/page/Index'
 import ToComWeb from '../src/page/ToComWeb'
@@ -26,20 +26,20 @@ const Welcome=createStackNavigator({
 })
 
 const TopTabNavigator=createMaterialTopTabNavigator({
-    IndexPage2:{
-        screen:IndexPage2,
+    CompanyIntroduce:{
+        screen:CompanyIntroduce,
         navigationOptions:{
             tabBarLabel:'公司介绍'
         }
     },
-    Page4:{
-        screen:Page4,
+    ProductIntroduce:{
+        screen:ProductIntroduce,
         navigationOptions:{
             title:'产品介绍'
         }
     },
-    Page5:{
-        screen:Page5,
+    IndexPage2:{
+        screen:IndexPage2,
         navigationOptions:{
             title:'教学课程'
         }
@@ -102,15 +102,15 @@ const BottomTabNavigator=createBottomTabNavigator({
             )
         }
     },
-    MyPage: {
-        screen: MyPage,
-        navigationOptions:{
-            tabBarLabel:'我的',
-            tabBarIcon:({tintColor,focused})=>(
-                <Ionicons name={'account'} size={26} style={{color:tintColor}}/>
-            )
-        }
-    }
+    // MyPage: {
+    //     screen: MyPage,
+    //     navigationOptions:{
+    //         tabBarLabel:'我的',
+    //         tabBarIcon:({tintColor,focused})=>(
+    //             <Ionicons name={'account'} size={26} style={{color:tintColor}}/>
+    //         )
+    //     }
+    // }
 },{
     tabBarOptions:{
         activeTintColor:Platform.OS==='ios'?'#e91e63':'#7a1213'
@@ -128,7 +128,11 @@ const stackNavigator=createStackNavigator({
     Bottom:{
         screen:BottomTabNavigator,
         navigationOptions:{
-            title:'中邦智慧教育APP'
+            title:'中邦智慧教育',
+            // headerTitleStyle:{
+            //     height:10,
+            //     padding:0
+            // }
         }
     },
 
@@ -161,6 +165,6 @@ const stackNavigator=createStackNavigator({
 })
 
 export const AppAllNavigator=createSwitchNavigator({
-    // AppWelcome:Welcome,
+    AppWelcome:Welcome,
     AppstackNavigator:stackNavigator,
 })

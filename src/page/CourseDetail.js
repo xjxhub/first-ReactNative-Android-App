@@ -237,17 +237,19 @@ export default class CourseDetail extends Component<Props> {
         })
             .then((response) => response.json())
             .then((res) => {
-                res.result.appraiseMsg.map((item, index) => {
-                    let myName = ''
-                    let str = item.name
-                    myName = str.slice(0, 3) + '****' + str.slice(6, 10)
-                    // alert(myName)
-                    item.name = myName
-                })
+                if(res){
+                    res.result.appraiseMsg.map((item, index) => {
+                        let myName = ''
+                        let str = item.name
+                        myName = str.slice(0, 3) + '****' + str.slice(6, 10)
+                        // alert(myName)
+                        item.name = myName
+                    })
 
-                this.setState({
-                    allCommentData: res.result.appraiseMsg
-                });
+                    this.setState({
+                        allCommentData: res.result.appraiseMsg
+                    });
+                }
             })
     }
 
@@ -262,10 +264,12 @@ export default class CourseDetail extends Component<Props> {
 
     // 切换tab的方法
     tableChanged = (index) => {
-        // let test = index
-        // for(i in test){
-        //     alert(test[i])
-        // }
+        let test = index
+        for(i in test){
+            if(test[i] !== '微课'){
+
+            }
+        }
     }
 
     // 综合评价
@@ -432,7 +436,7 @@ export default class CourseDetail extends Component<Props> {
                     <ScrollView>
                         <Text style={styles.commentTip}>全部评价</Text>
                         <View style={styles.allComment}>
-                            {this.state.allCommentData ?
+                            {!this.state.allCommentData === [] ?
                                 <View style={{marginLeft: 15}}>
                                     {
                                         this.state.allCommentData.map((item, index) => {
@@ -492,50 +496,51 @@ export default class CourseDetail extends Component<Props> {
                                 <View style={{alignItems: 'center'}}><Text>暂无评论</Text></View>
                             }
                         </View>
-                        <Text style={styles.commentTip}>我要评价</Text>
-                        <View style={styles.commentConent}>
-                            <View style={styles.fontAndStar}>
-                                <Text>综合评价</Text>
-                                <StarRating
-                                    fullStarColor={'#fabd3b'}
-                                    starSize={14}
-                                    disabled={false}
-                                    maxStars={5}
-                                    rating={this.state.starCount}
-                                    selectedStar={(rating) => this.onStarRatingPress(rating)}
-                                />
-                            </View>
-                            <TextInput
-                                style={{height: 80, width: '100%', marginBottom: 10, backgroundColor: '#ededed'}}
-                                onChangeText={(text) => this.setState({text})}
-                                value={this.state.text}
-                            />
-                            <View style={styles.fontAndStar}>
-                                <Text>教学内容</Text>
-                                <StarRating
-                                    fullStarColor={'#fabd3b'}
-                                    starSize={14}
-                                    disabled={false}
-                                    maxStars={5}
-                                    rating={this.state.starCourse}
-                                    selectedStar={(rating) => this.onStarRatingPressCourse(rating)}
-                                />
-                            </View>
-                            <View style={styles.fontAndStar}>
-                                <Text>任课老师</Text>
-                                <StarRating
-                                    fullStarColor={'#fabd3b'}
-                                    starSize={14}
-                                    disabled={false}
-                                    maxStars={5}
-                                    rating={this.state.starTeacher}
-                                    selectedStar={(rating) => this.onStarRatingPressTeacher(rating)}
-                                />
-                            </View>
-                        </View>
-                        <Button onPress={this.submitComment}
-                                style={{width: 70, marginTop: 15, marginLeft: 10, marginBottom: 10}} type="primary"
-                                size="middle">提交评论</Button>
+                        {/*我要评价*/}
+                        {/*<Text style={styles.commentTip}>我要评价</Text>*/}
+                        {/*<View style={styles.commentConent}>*/}
+                            {/*<View style={styles.fontAndStar}>*/}
+                                {/*<Text>综合评价</Text>*/}
+                                {/*<StarRating*/}
+                                    {/*fullStarColor={'#fabd3b'}*/}
+                                    {/*starSize={14}*/}
+                                    {/*disabled={false}*/}
+                                    {/*maxStars={5}*/}
+                                    {/*rating={this.state.starCount}*/}
+                                    {/*selectedStar={(rating) => this.onStarRatingPress(rating)}*/}
+                                {/*/>*/}
+                            {/*</View>*/}
+                            {/*<TextInput*/}
+                                {/*style={{height: 80, width: '100%', marginBottom: 10, backgroundColor: '#ededed'}}*/}
+                                {/*onChangeText={(text) => this.setState({text})}*/}
+                                {/*value={this.state.text}*/}
+                            {/*/>*/}
+                            {/*<View style={styles.fontAndStar}>*/}
+                                {/*<Text>教学内容</Text>*/}
+                                {/*<StarRating*/}
+                                    {/*fullStarColor={'#fabd3b'}*/}
+                                    {/*starSize={14}*/}
+                                    {/*disabled={false}*/}
+                                    {/*maxStars={5}*/}
+                                    {/*rating={this.state.starCourse}*/}
+                                    {/*selectedStar={(rating) => this.onStarRatingPressCourse(rating)}*/}
+                                {/*/>*/}
+                            {/*</View>*/}
+                            {/*<View style={styles.fontAndStar}>*/}
+                                {/*<Text>任课老师</Text>*/}
+                                {/*<StarRating*/}
+                                    {/*fullStarColor={'#fabd3b'}*/}
+                                    {/*starSize={14}*/}
+                                    {/*disabled={false}*/}
+                                    {/*maxStars={5}*/}
+                                    {/*rating={this.state.starTeacher}*/}
+                                    {/*selectedStar={(rating) => this.onStarRatingPressTeacher(rating)}*/}
+                                {/*/>*/}
+                            {/*</View>*/}
+                        {/*</View>*/}
+                        {/*<Button onPress={this.submitComment}*/}
+                                {/*style={{width: 70, marginTop: 15, marginLeft: 10, marginBottom: 10}} type="primary"*/}
+                                {/*size="middle">提交评论</Button>*/}
                     </ScrollView>
                 </Tabs>
             </View>
