@@ -87,7 +87,7 @@ const BottomTabNavigator=createBottomTabNavigator({
     ToComWeb: {
         screen: ToComWeb,
         navigationOptions:{
-            tabBarLabel:'公司网站链接',
+            tabBarLabel:'公司官网',
             tabBarIcon:({tintColor,focused})=>(
                 <Ionicons name={'web'} size={26} style={{color:tintColor}}/>
             )
@@ -96,7 +96,7 @@ const BottomTabNavigator=createBottomTabNavigator({
     ToALi: {
         screen: ToALi,
         navigationOptions:{
-            tabBarLabel:'阿里云试用版',
+            tabBarLabel:'教学系统',
             tabBarIcon:({tintColor,focused})=>(
                 <Ionicons name={'access-point'} size={26} style={{color:tintColor}}/>
             )

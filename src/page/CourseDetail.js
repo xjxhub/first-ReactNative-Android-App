@@ -385,7 +385,7 @@ export default class CourseDetail extends Component<Props> {
             {title: '简介'},
             {title: '微课'},
             {title: '课件'},
-            {title: '评论'}
+            // {title: '评论'}
         ];
         return (
             <View style={{flex: 1}}>
@@ -436,33 +436,33 @@ export default class CourseDetail extends Component<Props> {
                         </View>
                     </View>
                     {/*评论*/}
-                    <ScrollView>
-                        <Text style={styles.commentTip}>全部评价</Text>
-                        <View style={styles.allComment}>
-                            {!this.state.allCommentData === [] ?
-                                <View style={{marginLeft: 15}}>
-                                    {
-                                        this.state.allCommentData.map((item, index) => {
-                                            return <View key={index}>
-                                                <View style={styles.commentItem}>
-                                                    <Text style={{
-                                                        marginRight: 5,
-                                                        fontSize: 16,
-                                                        fontWeight: 'bold'
-                                                    }}>{item.name}</Text>
-                                                    <StarRating
-                                                        fullStarColor={'#fabd3b'}
-                                                        starSize={16}
-                                                        disabled={true}
-                                                        maxStars={5}
-                                                        rating={item.starLevel}
-                                                    />
-                                                </View>
-                                                <Text style={styles.commentItemContent}>{item.content}</Text>
-                                                <View style={styles.commentItemTime}>
-                                                    <Text>{item.time}</Text>
-                                                </View>
-                                                {/*回复功能*/}
+                    {/*<ScrollView>*/}
+                        {/*<Text style={styles.commentTip}>全部评价</Text>*/}
+                        {/*<View style={styles.allComment}>*/}
+                            {/*{!this.state.allCommentData === [] ?*/}
+                                {/*<View style={{marginLeft: 15}}>*/}
+                                    {/*{*/}
+                                        {/*this.state.allCommentData.map((item, index) => {*/}
+                                            {/*return <View key={index}>*/}
+                                                {/*<View style={styles.commentItem}>*/}
+                                                    {/*<Text style={{*/}
+                                                        {/*marginRight: 5,*/}
+                                                        {/*fontSize: 16,*/}
+                                                        {/*fontWeight: 'bold'*/}
+                                                    {/*}}>{item.name}</Text>*/}
+                                                    {/*<StarRating*/}
+                                                        {/*fullStarColor={'#fabd3b'}*/}
+                                                        {/*starSize={16}*/}
+                                                        {/*disabled={true}*/}
+                                                        {/*maxStars={5}*/}
+                                                        {/*rating={item.starLevel}*/}
+                                                    {/*/>*/}
+                                                {/*</View>*/}
+                                                {/*<Text style={styles.commentItemContent}>{item.content}</Text>*/}
+                                                {/*<View style={styles.commentItemTime}>*/}
+                                                    {/*<Text>{item.time}</Text>*/}
+                                                {/*</View>*/}
+                                                {/*/!*回复功能*!/*/}
                                                 {/*<Button onPress={() => this.replySubmitComment(index)}*/}
                                                         {/*style={{width: 50, marginBottom: 5}} type="warning"*/}
                                                         {/*size="middle">回复</Button>*/}
@@ -491,15 +491,15 @@ export default class CourseDetail extends Component<Props> {
                                                         {/*</View>*/}
                                                     {/*</View> : <Text> </Text>*/}
                                                 {/*}*/}
-                                            </View>
+                                            {/*</View>*/}
 
-                                        })
-                                    }
-                                </View> :
-                                <View style={{alignItems: 'center'}}><Text>暂无评论</Text></View>
-                            }
-                        </View>
-                        {/*我要评价*/}
+                                        {/*})*/}
+                                    {/*}*/}
+                                {/*</View> :*/}
+                                {/*<View style={{alignItems: 'center'}}><Text>暂无评论</Text></View>*/}
+                            {/*}*/}
+                        {/*</View>*/}
+                        {/*/!*我要评价*!/*/}
                         {/*<Text style={styles.commentTip}>我要评价</Text>*/}
                         {/*<View style={styles.commentConent}>*/}
                             {/*<View style={styles.fontAndStar}>*/}
@@ -544,7 +544,7 @@ export default class CourseDetail extends Component<Props> {
                         {/*<Button onPress={this.submitComment}*/}
                                 {/*style={{width: 70, marginTop: 15, marginLeft: 10, marginBottom: 10}} type="primary"*/}
                                 {/*size="middle">提交评论</Button>*/}
-                    </ScrollView>
+                    {/*</ScrollView>*/}
                 </Tabs>
             </View>
 
