@@ -560,10 +560,10 @@ const styles = StyleSheet.create({
         color: '#000'
     },
     style: {
-        paddingVertical: 120,
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: 10,
+        paddingVertical: 20,
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        paddingLeft: 20,
         backgroundColor: '#ddd',
     },
     pptContainer: {

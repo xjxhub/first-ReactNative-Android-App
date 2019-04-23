@@ -4,4 +4,4 @@ import {createAppContainer} from 'react-navigation'
 import {AppAllNavigator} from './navigators/AppNavigators'
 import {name as appName} from './app.json';
 const AppstackNavigatorContainer=createAppContainer(AppAllNavigator)
-AppRegistry.registerComponent('ZBT', () => AppstackNavigatorContainer);
+AppRegistry.registerComponent('ZBTT', () => AppstackNavigatorContainer);

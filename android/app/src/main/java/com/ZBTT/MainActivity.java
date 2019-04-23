@@ -1,4 +1,4 @@
-package com.ZBT;
+package com.ZBTT;
 
 import com.facebook.react.ReactActivity;
 import android.content.Intent;
@@ -12,7 +12,7 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "ZBT";
+        return "ZBTT";
     }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
