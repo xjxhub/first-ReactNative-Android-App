@@ -65,9 +65,9 @@ export default class CourseDetail extends Component<Props> {
             allpptPage: 0,
             pptArray: [],
             swiperShow: false,
-            videoUrl: "http://114.55.0.239:8004/resource/" + this.courseItem.title + '/' + this.courseItem.video,
+            videoUrl: "http://114.55.0.239:8004/resource/" + this.courseItem.videoPath + '/' + this.courseItem.video,
             // videoUrl: "http://124.129.157.208:8810/SD/2017qingdao/xiaoxueEnglish/grade3/b/1.mp4",
-            videoCover: this.url + "/resource/" + this.courseItem.title + '/' + this.courseItem.url,
+            videoCover: this.url + "/resource/" + this.courseItem.videoPath + '/' + this.courseItem.url,
             fetchDataGet: 55,
             fetchDataPost: 66,
             text: '',
@@ -146,7 +146,7 @@ export default class CourseDetail extends Component<Props> {
         const {navigation} = this.props
         navigation.navigate("Reppt", {
             index: this.state.currpptIndex,
-            reqPath: this.courseItem.title + '/' + this.state.currCourseItemPPT
+            reqPath: this.courseItem.videoPath + '/' + this.state.currCourseItemPPT
         })
     }
 
@@ -155,7 +155,7 @@ export default class CourseDetail extends Component<Props> {
         const {navigation} = this.props
         navigation.navigate("Reppt1", {
             index: this.state.currpptIndex,
-            reqPath: this.courseItem.title + '/' + this.state.currCourseItemPPT
+            reqPath: this.courseItem.videoPath + '/' + this.state.currCourseItemPPT
         })
     }
 
@@ -194,7 +194,7 @@ export default class CourseDetail extends Component<Props> {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                pptParam: this.courseItem.title + '/' + this.state.currCourseItemPPT,
+                pptParam: this.courseItem.videoPath + '/' + this.state.currCourseItemPPT,
             }),
         })
             .then((response) => response.json())
@@ -399,7 +399,10 @@ export default class CourseDetail extends Component<Props> {
                       onChange={(index) => this.tableChanged(index)}>
                     {/*简介*/}
                     <View style={styles.style}>
-                        <Text>{this.courseItem.describe}</Text>
+                        <Text style={{lineHeight:30}}>
+                            <Text style={{color: '#ddd'}}>谢谢</Text>
+                            <Text>{this.courseItem.describe}</Text>
+                        </Text>
                     </View>
 
                     {/*微课*/}
@@ -561,9 +564,10 @@ const styles = StyleSheet.create({
     },
     style: {
         paddingVertical: 20,
-        // justifyContent: 'center',
-        // alignItems: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
         paddingLeft: 20,
+        paddingRight: 20,
         backgroundColor: '#ddd',
     },
     pptContainer: {
